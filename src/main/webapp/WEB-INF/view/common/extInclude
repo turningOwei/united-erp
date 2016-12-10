@@ -1,0 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script type="text/javascript" src="${staticPath}/ext_js/ext-bootstrap.js"></script>
+<script type="text/javascript" src="${staticPath}/ext_js/ext/locale/locale-zh_CN.js"></script>
+<link rel="stylesheet" href="${staticPath}/ext_js/ext/packages/theme-neptune/resources/theme-neptune-all.css"/>

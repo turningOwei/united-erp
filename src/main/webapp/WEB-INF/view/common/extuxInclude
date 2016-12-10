@@ -1,0 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script type="text/javascript" src="${staticPath}/js/extux/Msg.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
+<script type="text/javascript" src="${staticPath}/js/extux/ajax/Ajax.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
+<script type="text/javascript" src="${staticPath}/js/extux/grid/CusGrid.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
+<script type="text/javascript" src="${staticPath}/js/extux/override.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
+
+

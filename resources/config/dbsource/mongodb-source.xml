@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/data/mongo
+    	   http://www.springframework.org/schema/data/mongo/spring-mongo.xsd"
+       default-lazy-init="true">
+    <!--<mongo:repositories base-package="com.vdpssger.corrrulecfg.dao.mongodb.repositories" />-->
+
+    <!-- mongodb配置 -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongoField" />
+        <constructor-arg name="databaseName" value="teemaxxcdfs" />
+    </bean>
+
+    <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+        <property name="host" value="localhost" /><!--139.196.205.159-->
+        <property name="port" value="27017" />
+    </bean>
+
+    <bean id="mongoField" class="org.springframework.data.mongodb.core.MongoClientFactoryBean">
+        <property name="host" value="localhost" /><!--139.196.205.159-->
+        <property name="port" value="27017" />
+    </bean>
+
+</beans>

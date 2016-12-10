@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 系统变量配置 -->
+<script type="text/javascript">
+	SysConfig = function () {
+		return {
+			ctx    	   		: '${ctx}',
+			staticPath 		: '${staticPath}',
+			jsPath     		: '${staticPath}/js',
+			//printPath		: '${staticPath}/print',
+			//pageSize   		: 100
+		};
+	}();
+</script>
