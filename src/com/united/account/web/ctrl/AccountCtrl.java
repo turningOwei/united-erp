@@ -1,4 +1,4 @@
-package com.united.account.web;
+package com.united.account.web.ctrl;
 
 import com.united.account.dao.entity.Account;
 import org.springframework.stereotype.Controller;

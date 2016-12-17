@@ -1,6 +1,8 @@
 package com.united.account.service.impl;
 
+import com.united.account.dao.entity.Account;
 import com.united.account.service.AccountService;
+import com.united.permission.dao.entity.Resource;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,4 +10,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AccountServiceImpl implements AccountService {
+    @Override
+    public Resource getResourceByAccount(Account account) {
+        return null;
+    }
 }
