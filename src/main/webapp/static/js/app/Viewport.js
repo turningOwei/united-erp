@@ -32,6 +32,7 @@ Ext.define('App.Viewport',{
 				{text	  : '菜单'}
 			]
 		};
+		console.log(menuData);
 		//westPanel.loadData(root);
 		westPanel.loadData(menuData);
 		topPanel.initData(sysUser);
