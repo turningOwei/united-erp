@@ -1,5 +1,6 @@
 package com.united.account.web.ctrl;
 
+import com.common.SystemConfig;
 import com.united.account.dao.entity.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
