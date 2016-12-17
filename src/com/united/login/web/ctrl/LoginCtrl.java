@@ -31,13 +31,13 @@ public class LoginCtrl {
         String ctx = request.getContextPath();
         modelMap.put("ctx", ctx);
         modelMap.put("staticPath", ctx+"/static");
-        IndexResult result = getResult();
+        IndexResult result = getResult(account);
         Gson gson = new GsonBuilder().serializeNulls().create();
         modelMap.put("result", gson.toJson(result));
         return mv;
     }
 
-    private IndexResult getResult(){
+    private IndexResult getResult(Account account){
         IndexResult result = new IndexResult();
         SysResource rootNode = sysResourceService.getRootNode();
         result.setMenuData(rootNode);
