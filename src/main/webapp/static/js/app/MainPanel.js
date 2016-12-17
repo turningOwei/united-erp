@@ -19,6 +19,7 @@ Ext.define('App.MainPanel',{
 		    title    = data.text,
 		    id 	     = "tabitem_" + data.id,
 		    iconCls  = data.iconCls;
+		console.log(data);
 		if (Ext.isEmpty(id) || Ext.isEmpty(menuType) || Ext.isEmpty(menuUrl)) {
 			var msg = Ext.String.format(
 					"id : {0}, menuType : {1}, menuUrl : {2} all of not null", 
