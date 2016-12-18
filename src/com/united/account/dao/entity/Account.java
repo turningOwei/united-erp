@@ -5,6 +5,8 @@ import java.util.Date;
 public class Account {
     private Integer id;
 
+    private Integer corpId;
+
     private String name;
 
     private String password;
@@ -17,14 +19,18 @@ public class Account {
 
     private Date updateDate;
 
-    public Account(Integer id, String name, String password, String mobilePhone, String email, Date createDate, Date updateDate) {
+    private String bizModuleKey;
+
+    public Account(Integer id, Integer corpId, String name, String password, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
         this.id = id;
+        this.corpId = corpId;
         this.name = name;
         this.password = password;
         this.mobilePhone = mobilePhone;
         this.email = email;
         this.createDate = createDate;
         this.updateDate = updateDate;
+        this.bizModuleKey = bizModuleKey;
     }
 
     public Account() {
@@ -37,6 +43,14 @@ public class Account {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCorpId() {
+        return corpId;
+    }
+
+    public void setCorpId(Integer corpId) {
+        this.corpId = corpId;
     }
 
     public String getName() {
@@ -85,5 +99,13 @@ public class Account {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getBizModuleKey() {
+        return bizModuleKey;
+    }
+
+    public void setBizModuleKey(String bizModuleKey) {
+        this.bizModuleKey = bizModuleKey;
     }
 }
