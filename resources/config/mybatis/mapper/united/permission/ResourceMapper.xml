@@ -55,7 +55,7 @@
     values (#{dbId,jdbcType=INTEGER}, #{corpId,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
       #{menuType,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{isLeaf,jdbcType=INTEGER}, 
-      #{jsClassName,jdbcType=VARCHAR}, #{jsPath,jdbcType=VARCHAR}, #{validStatus,jdbcType=INTEGER}, 
+      #{jsClassName,jdbcType=VARCHAR}, #{validStatus,jdbcType=INTEGER},
       #{roleKey,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.united.permission.dao.entity.Resource">
@@ -128,9 +128,6 @@
       </if>
       <if test="jsClassName != null">
         #{jsClassName,jdbcType=VARCHAR},
-      </if>
-      <if test="jsPath != null">
-        #{jsPath,jdbcType=VARCHAR},
       </if>
       <if test="validStatus != null">
         #{validStatus,jdbcType=INTEGER},
