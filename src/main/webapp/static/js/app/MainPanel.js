@@ -19,7 +19,7 @@ Ext.define('App.MainPanel',{
 		    title    = data.text,
 		    id 	     = "tabitem_" + data.id,
 		    iconCls  = data.iconCls;
-		console.log(data);
+		//console.log(data);
 		if (Ext.isEmpty(id) || Ext.isEmpty(menuType) || Ext.isEmpty(menuUrl)) {
 			var msg = Ext.String.format(
 					"id : {0}, menuType : {1}, menuUrl : {2} all of not null", 
@@ -34,9 +34,11 @@ Ext.define('App.MainPanel',{
 	
 		if (Ext.isEmpty(findCmp)) {  // 如果findCmp为空则加载组件
 			if (menuType == 1) { // 代表菜单类型是ext组件
-				var jsPath = data.jsPath;
-				if (Ext.isEmpty(jsPath)) {
-					Ext.Logger.error('jsPath is null');
+				var jsPath = data.jsPath,
+					jsClassName = data.jsClassName;
+
+				if (Ext.isEmpty(jsClassName)) {
+					Ext.Logger.error('jsClassName is null');
 					return;
 				}
 				
@@ -50,10 +52,16 @@ Ext.define('App.MainPanel',{
 				/**
 				 * 动态加载js
 				 */
-				Ext.require(jsPath, function(){
+				/*Ext.require(jsPath, function(){
 					this.add(comCfg);
 					this.setActiveTab(id);
-				}, this);
+				}, this);*/
+				//Ext.Loader.setPath(jsClassName,jsPath);
+				//也可以用Ext.Loader.setPath jspath要写在数据库,维护比不上直接写在loadConfig.js中
+				Ext.require(jsClassName, function () {
+					this.add(comCfg);
+					this.setActiveTab(id);
+				},this);
 			}
 		} else {
 			this.setActiveTab(id);
