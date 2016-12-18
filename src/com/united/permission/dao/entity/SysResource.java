@@ -21,12 +21,12 @@ public class SysResource {
 
     private Integer isLeaf;
 
-    private String jsPath;
+    private String jsClassName;
 
     @Transient
     private List<SysResource> children;
 
-    public SysResource(Integer dbId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsPath) {
+    public SysResource(Integer dbId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName) {
         this.dbId = dbId;
         this.text = text;
         this.parentId = parentId;
@@ -35,7 +35,7 @@ public class SysResource {
         this.menuType = menuType;
         this.iconCls = iconCls;
         this.isLeaf = isLeaf;
-        this.jsPath = jsPath;
+        this.jsClassName = jsClassName;
     }
 
     public SysResource() {
@@ -106,12 +106,12 @@ public class SysResource {
         this.isLeaf = isLeaf;
     }
 
-    public String getJsPath() {
-        return jsPath;
+    public String getJsClassName() {
+        return jsClassName;
     }
 
-    public void setJsPath(String jsPath) {
-        this.jsPath = jsPath == null ? null : jsPath.trim();
+    public void setJsClassName(String jsClassName) {
+        this.jsClassName = jsClassName;
     }
 
     public List<SysResource> getChildren() {
