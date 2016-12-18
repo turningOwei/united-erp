@@ -7,7 +7,7 @@
 			staticPath 		: '${staticPath}',
 			jsPath     		: '${staticPath}/js',
 			//printPath		: '${staticPath}/print',
-			//pageSize   		: 100
+			pageSize   		: 100
 		};
 	}();
 </script>
