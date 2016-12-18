@@ -1,5 +1,7 @@
 package com.united.permission.dao.entity;
 
+import java.util.List;
+
 public class Resource extends ResourceKey {
     private String text;
 
@@ -15,13 +17,16 @@ public class Resource extends ResourceKey {
 
     private Integer isLeaf;
 
-    private String jsPath;
+    private String jsClassName;
+
 
     private Integer validStatus;
 
     private String roleKey;
 
-    public Resource(Integer dbId, Integer corpId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsPath, Integer validStatus, String roleKey) {
+    private List<Resource> children;
+
+    public Resource(Integer dbId, Integer corpId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, String jsPath, Integer validStatus, String roleKey) {
         super(dbId, corpId);
         this.text = text;
         this.parentId = parentId;
@@ -30,7 +35,7 @@ public class Resource extends ResourceKey {
         this.menuType = menuType;
         this.iconCls = iconCls;
         this.isLeaf = isLeaf;
-        this.jsPath = jsPath;
+        this.jsClassName = jsClassName;
         this.validStatus = validStatus;
         this.roleKey = roleKey;
     }
@@ -95,13 +100,14 @@ public class Resource extends ResourceKey {
         this.isLeaf = isLeaf;
     }
 
-    public String getJsPath() {
-        return jsPath;
+    public String getJsClassName() {
+        return jsClassName;
     }
 
-    public void setJsPath(String jsPath) {
-        this.jsPath = jsPath == null ? null : jsPath.trim();
+    public void setJsClassName(String jsClassName) {
+        this.jsClassName = jsClassName == null ? null : jsClassName.trim();
     }
+
 
     public Integer getValidStatus() {
         return validStatus;
@@ -117,5 +123,13 @@ public class Resource extends ResourceKey {
 
     public void setRoleKey(String roleKey) {
         this.roleKey = roleKey == null ? null : roleKey.trim();
+    }
+
+    public List<Resource> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Resource> children) {
+        this.children = children;
     }
 }

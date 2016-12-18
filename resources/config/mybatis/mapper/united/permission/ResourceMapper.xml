@@ -13,14 +13,13 @@
       <arg column="icon_cls" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="is_leaf" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="js_class_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="js_path" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="valid_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="role_key" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     db_id, corp_id, text, parent_id, name, menu_url, menu_type, icon_cls, is_leaf, js_class_name, 
-    js_path, valid_status, role_key
+    valid_status, role_key
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.united.permission.dao.entity.ResourceKey" resultMap="BaseResultMap">
     select 
@@ -51,7 +50,7 @@
     insert into t_resource (db_id, corp_id, text, 
       parent_id, name, menu_url, 
       menu_type, icon_cls, is_leaf, 
-      js_class_name, js_path, valid_status, 
+      js_class_name, valid_status,
       role_key)
     values (#{dbId,jdbcType=INTEGER}, #{corpId,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
@@ -91,9 +90,6 @@
       </if>
       <if test="jsClassName != null">
         js_class_name,
-      </if>
-      <if test="jsPath != null">
-        js_path,
       </if>
       <if test="validStatus != null">
         valid_status,
@@ -171,9 +167,6 @@
       <if test="jsClassName != null">
         js_class_name = #{jsClassName,jdbcType=VARCHAR},
       </if>
-      <if test="jsPath != null">
-        js_path = #{jsPath,jdbcType=VARCHAR},
-      </if>
       <if test="validStatus != null">
         valid_status = #{validStatus,jdbcType=INTEGER},
       </if>
@@ -194,7 +187,6 @@
       icon_cls = #{iconCls,jdbcType=VARCHAR},
       is_leaf = #{isLeaf,jdbcType=INTEGER},
       js_class_name = #{jsClassName,jdbcType=VARCHAR},
-      js_path = #{jsPath,jdbcType=VARCHAR},
       valid_status = #{validStatus,jdbcType=INTEGER},
       role_key = #{roleKey,jdbcType=VARCHAR}
     where db_id = #{dbId,jdbcType=INTEGER}
