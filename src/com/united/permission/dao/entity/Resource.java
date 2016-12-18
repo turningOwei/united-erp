@@ -1,7 +1,5 @@
 package com.united.permission.dao.entity;
 
-import java.util.List;
-
 public class Resource extends ResourceKey {
     private String text;
 
@@ -19,14 +17,11 @@ public class Resource extends ResourceKey {
 
     private String jsClassName;
 
-
     private Integer validStatus;
 
     private String roleKey;
 
-    private List<Resource> children;
-
-    public Resource(Integer dbId, Integer corpId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, String jsPath, Integer validStatus, String roleKey) {
+    public Resource(Integer dbId, Integer corpId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, Integer validStatus, String roleKey) {
         super(dbId, corpId);
         this.text = text;
         this.parentId = parentId;
@@ -108,7 +103,6 @@ public class Resource extends ResourceKey {
         this.jsClassName = jsClassName == null ? null : jsClassName.trim();
     }
 
-
     public Integer getValidStatus() {
         return validStatus;
     }
@@ -123,13 +117,5 @@ public class Resource extends ResourceKey {
 
     public void setRoleKey(String roleKey) {
         this.roleKey = roleKey == null ? null : roleKey.trim();
-    }
-
-    public List<Resource> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Resource> children) {
-        this.children = children;
     }
 }

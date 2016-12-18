@@ -19,7 +19,6 @@ public interface ResourceMapper {
 
     int updateByPrimaryKey(Resource record);
 
-
     public List<Resource> selectAllByCorp(Account account);
 
     Resource selectRootByCorp(Integer corpId);

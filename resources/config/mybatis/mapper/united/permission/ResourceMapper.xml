@@ -28,6 +28,7 @@
     where db_id = #{dbId,jdbcType=INTEGER}
       and corp_id = #{corpId,jdbcType=INTEGER}
   </select>
+
   <select id="selectAllByCorp" parameterType="com.united.permission.dao.entity.ResourceKey" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -50,13 +51,13 @@
     insert into t_resource (db_id, corp_id, text, 
       parent_id, name, menu_url, 
       menu_type, icon_cls, is_leaf, 
-      js_class_name, valid_status,
-      role_key)
+      js_class_name, valid_status, role_key
+      )
     values (#{dbId,jdbcType=INTEGER}, #{corpId,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
       #{menuType,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{isLeaf,jdbcType=INTEGER}, 
-      #{jsClassName,jdbcType=VARCHAR}, #{validStatus,jdbcType=INTEGER},
-      #{roleKey,jdbcType=VARCHAR})
+      #{jsClassName,jdbcType=VARCHAR}, #{validStatus,jdbcType=INTEGER}, #{roleKey,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.united.permission.dao.entity.Resource">
     insert into t_resource
