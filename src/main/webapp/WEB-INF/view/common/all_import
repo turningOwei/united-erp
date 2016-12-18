@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!-- ÏµÍ³±äÁ¿ÅäÖÃ -->
+<!-- ç³»ç»Ÿå˜é‡é…ç½® -->
 <%@ include file="/WEB-INF/view/common/sysVariables"%>
-<!-- extjs »ù´¡ -->
+<!-- extjs åŸºç¡€ -->
 <%@ include file="/WEB-INF/view/common/extInclude"%>
-<!-- extjsÀ©Õ¹°ü -->
+<!-- extjsæ‰©å±•åŒ… -->
 <%@ include file="/WEB-INF/view/common/extuxInclude"%>
-<!-- ÏµÍ³Ä£¿é¼ÓÔØÂ·¾¶ÅäÖÃ -->
+<!-- ç³»ç»Ÿæ¨¡å—åŠ è½½è·¯å¾„é…ç½® -->
 <script type="text/javascript" src="${staticPath}/ext_js/loadConfig.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
 <script type="text/javascript" src="${staticPath}/js/app/AppWithoutLogIn.js?dc_='<%=new java.util.Date().getTime()%>'"></script>
