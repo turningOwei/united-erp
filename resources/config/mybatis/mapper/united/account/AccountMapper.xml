@@ -11,11 +11,11 @@
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="role_key" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="biz_module_key" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, corp_id, name, password, mobile_phone, email, create_date, update_date, role_key
+    id, corp_id, name, password, mobile_phone, email, create_date, update_date, biz_module_key
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,11 +30,11 @@
   <insert id="insert" parameterType="com.united.account.dao.entity.Account">
     insert into t_account (id, corp_id, name, 
       password, mobile_phone, email, 
-      create_date, update_date, role_key
+      create_date, update_date, biz_module_key
       )
     values (#{id,jdbcType=INTEGER}, #{corpId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{roleKey,jdbcType=VARCHAR}
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{bizModuleKey,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.united.account.dao.entity.Account">
@@ -64,8 +64,8 @@
       <if test="updateDate != null">
         update_date,
       </if>
-      <if test="roleKey != null">
-        role_key,
+      <if test="bizModuleKey != null">
+        biz_module_key,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -93,8 +93,8 @@
       <if test="updateDate != null">
         #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="roleKey != null">
-        #{roleKey,jdbcType=VARCHAR},
+      <if test="bizModuleKey != null">
+        #{bizModuleKey,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -122,8 +122,8 @@
       <if test="updateDate != null">
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="roleKey != null">
-        role_key = #{roleKey,jdbcType=VARCHAR},
+      <if test="bizModuleKey != null">
+        biz_module_key = #{bizModuleKey,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -137,7 +137,7 @@
       email = #{email,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      role_key = #{roleKey,jdbcType=VARCHAR}
+      biz_module_key = #{bizModuleKey,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
