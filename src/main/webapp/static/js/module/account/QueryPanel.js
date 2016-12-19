@@ -33,6 +33,20 @@ Ext.define('Module.account.QueryPanel', {
         ];
     },
     buildTbar       : function(){
-        return  [{xtype       : 'button', text : '查询'}];
+        var thiz = this;
+        var roleMangeListeners = {
+            click:function(thisCmp, e, eOpts ){
+                thiz.store.reload();
+            }
+        };
+        var refrushListeners = {
+            click:function(thisCmp, e, eOpts ){
+                thiz.store.reload();
+            }
+        };
+        return  [
+            {xtype  : 'button',text : '刷新',listeners:refrushListeners    },
+            {xtype  : 'button',text : '权限管理',listeners:roleMangeListeners}
+        ];
     }
 });
