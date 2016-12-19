@@ -26,10 +26,13 @@ Ext.define('Module.account.QueryPanel', {
     },
     buildColumns	: function() {
         return [
-            {text : '姓名',     dataIndex : 'name'},
-            {text : '联系电话', dataIndex : 'mobilePhone'},
-            {text : '邮件地址', dataIndex : 'email'},
-            {text : '所属业务', dataIndex : 'bizModuleKey'}
+            {text : '姓名',     dataIndex : 'name',width:200},
+            {text : '联系电话', dataIndex : 'mobilePhone',width : 160},
+            {text : '邮件地址', dataIndex : 'email',width:160},
+            {text : '所属业务', dataIndex : 'bizModuleKey',width:160}
         ];
+    },
+    buildTbar       : function(){
+        return  [{xtype       : 'button', text : '查询'}];
     }
 });
