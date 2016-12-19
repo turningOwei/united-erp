@@ -27,12 +27,7 @@ Ext.define('ExtUx.grid.CusGrid', {
 				/**
 			 	 * 初始化分页工具条需要store
 			 	 */
-				var bbar        = this.buildBbar();
-			
-				Ext.applyIf(this, {
-					bbar        : bbar
-				});
-						
+				this.bbar = this.buildBbar();
 			}
 			
 			this.on('destroy', this.onCusGridDestoryFn);
