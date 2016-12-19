@@ -13,16 +13,16 @@ Ext.define('ExtUx.grid.CusGrid', {
 		initComponent    : function() {
 			var store       = this.buildStore(),
 				columns  	= this.buildColumns(),
-				tbar 	 	= this.buildTbar(),
 				dockedItems = this.buildDockedItems();
 				
 			Ext.applyIf(this, {
 				store       : store,
-				tbar     	: tbar,
 				dockedItems : dockedItems,
 				columns  	: [{xtype: 'rownumberer'}].concat(columns)
 			});
-			
+
+			this.tbar 	 	= this.buildTbar();
+
 			if (this.isQueryPage == true) {
 				/**
 			 	 * 初始化分页工具条需要store
