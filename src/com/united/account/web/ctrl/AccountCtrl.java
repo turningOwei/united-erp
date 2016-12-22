@@ -1,5 +1,6 @@
 package com.united.account.web.ctrl;
 
+import com.global.ExtJsonForm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.page.PageParam;
@@ -45,4 +46,20 @@ public class AccountCtrl {
         String result = gson.toJson(map);
         return result;
     }
+
+    @RequestMapping("/queryAccountById.do")
+    @ResponseBody
+    public ExtJsonForm queryAccountById(Account account) {
+        Account entity = accountService.queryAccountById(account);
+        return new ExtJsonForm(true,entity);
+    }
+
+    @RequestMapping("/saveAccount.do")
+    @ResponseBody
+    public ExtJsonForm saveAccount(Account account) {
+        Account entity = accountService.saveOrUpdateAccount(account);
+        return new ExtJsonForm(true,entity);
+    }
+
+
 }
