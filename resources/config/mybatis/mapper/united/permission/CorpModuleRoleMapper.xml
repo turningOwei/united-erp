@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.united.permission.dao.CorpModuleRoleMapper">
+  <resultMap id="BaseResultMap" type="com.united.permission.dao.entity.CorpModuleRole">
+    <constructor>
+      <arg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="corp_id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="module_key" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_alias_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="biz_superadmin" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.united.permission.dao.entity.CorpModuleRole">
+    insert into t_corp_module_role (id, corp_id, module_key, 
+      role_name, role_alias_name, biz_superadmin, 
+      remark, description)
+    values (#{id,jdbcType=BIGINT}, #{corpId,jdbcType=BIGINT}, #{moduleKey,jdbcType=VARCHAR}, 
+      #{roleName,jdbcType=VARCHAR}, #{roleAliasName,jdbcType=VARCHAR}, #{bizSuperadmin,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.united.permission.dao.entity.CorpModuleRole">
+    insert into t_corp_module_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="corpId != null">
+        corp_id,
+      </if>
+      <if test="moduleKey != null">
+        module_key,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleAliasName != null">
+        role_alias_name,
+      </if>
+      <if test="bizSuperadmin != null">
+        biz_superadmin,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="corpId != null">
+        #{corpId,jdbcType=BIGINT},
+      </if>
+      <if test="moduleKey != null">
+        #{moduleKey,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleAliasName != null">
+        #{roleAliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="bizSuperadmin != null">
+        #{bizSuperadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -14,12 +14,12 @@
       <arg column="is_leaf" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="js_class_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="valid_status" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="role_key" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="module_keys" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     db_id, corp_id, text, parent_id, name, menu_url, menu_type, icon_cls, is_leaf, js_class_name, 
-    valid_status, role_key
+    valid_status, module_keys
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.united.permission.dao.entity.ResourceKey" resultMap="BaseResultMap">
     select 
@@ -51,12 +51,12 @@
     insert into t_resource (db_id, corp_id, text, 
       parent_id, name, menu_url, 
       menu_type, icon_cls, is_leaf, 
-      js_class_name, valid_status, role_key
+      js_class_name, valid_status, module_keys
       )
     values (#{dbId,jdbcType=INTEGER}, #{corpId,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
       #{menuType,jdbcType=VARCHAR}, #{iconCls,jdbcType=VARCHAR}, #{isLeaf,jdbcType=INTEGER}, 
-      #{jsClassName,jdbcType=VARCHAR}, #{validStatus,jdbcType=INTEGER}, #{roleKey,jdbcType=VARCHAR}
+      #{jsClassName,jdbcType=VARCHAR}, #{validStatus,jdbcType=INTEGER}, #{moduleKeys,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.united.permission.dao.entity.Resource">
@@ -95,8 +95,8 @@
       <if test="validStatus != null">
         valid_status,
       </if>
-      <if test="roleKey != null">
-        role_key,
+      <if test="moduleKeys != null">
+        module_keys,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -133,8 +133,8 @@
       <if test="validStatus != null">
         #{validStatus,jdbcType=INTEGER},
       </if>
-      <if test="roleKey != null">
-        #{roleKey,jdbcType=VARCHAR},
+      <if test="moduleKeys != null">
+        #{moduleKeys,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,8 +168,8 @@
       <if test="validStatus != null">
         valid_status = #{validStatus,jdbcType=INTEGER},
       </if>
-      <if test="roleKey != null">
-        role_key = #{roleKey,jdbcType=VARCHAR},
+      <if test="moduleKeys != null">
+        module_keys = #{moduleKeys,jdbcType=VARCHAR},
       </if>
     </set>
     where db_id = #{dbId,jdbcType=INTEGER}
@@ -186,7 +186,7 @@
       is_leaf = #{isLeaf,jdbcType=INTEGER},
       js_class_name = #{jsClassName,jdbcType=VARCHAR},
       valid_status = #{validStatus,jdbcType=INTEGER},
-      role_key = #{roleKey,jdbcType=VARCHAR}
+      module_keys = #{moduleKeys,jdbcType=VARCHAR}
     where db_id = #{dbId,jdbcType=INTEGER}
       and corp_id = #{corpId,jdbcType=INTEGER}
   </update>
