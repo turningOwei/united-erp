@@ -1,5 +1,6 @@
 package com.united.account.web.ctrl;
 
+import com.global.ExtGrid;
 import com.global.ExtJsonForm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,17 +35,11 @@ public class AccountCtrl {
 
     @RequestMapping("/listByPage.do")
     @ResponseBody
-    public String listByPage(Account account,PageParam<Account> pageParam){
+    public ExtGrid listByPage(Account account,PageParam<Account> pageParam){
         List<Account> list = accountService.listByPage(account);
         Integer totalCount =  accountService.listByPageCount(account);
         pageParam.setList(list);
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        Map map = new HashMap();
-        map.put("data",list);
-        map.put("totalCount",totalCount);
-        map.put("success",true);
-        String result = gson.toJson(map);
-        return result;
+        return new ExtGrid(list,totalCount,true);
     }
 
     @RequestMapping("/queryAccountById.do")
