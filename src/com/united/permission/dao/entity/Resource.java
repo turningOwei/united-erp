@@ -5,7 +5,7 @@ import java.util.List;
 public class Resource extends ResourceKey {
     private String text;
 
-    private Integer parentId;
+    private Long parentId;
 
     private String name;
 
@@ -21,13 +21,13 @@ public class Resource extends ResourceKey {
 
     private Integer validStatus;
 
-    private String roleKey;
+    private String moduleKeys;
 
     private List<Resource> children;
 
 
 
-    public Resource(Integer dbId, Integer corpId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, Integer validStatus, String roleKey) {
+    public Resource(Long dbId, Long corpId, String text, Long parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, Integer validStatus, String moduleKeys) {
         super(dbId, corpId);
         this.text = text;
         this.parentId = parentId;
@@ -38,7 +38,7 @@ public class Resource extends ResourceKey {
         this.isLeaf = isLeaf;
         this.jsClassName = jsClassName;
         this.validStatus = validStatus;
-        this.roleKey = roleKey;
+        this.moduleKeys = moduleKeys;
     }
 
     public Resource() {
@@ -53,11 +53,11 @@ public class Resource extends ResourceKey {
         this.text = text == null ? null : text.trim();
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -117,12 +117,12 @@ public class Resource extends ResourceKey {
         this.validStatus = validStatus;
     }
 
-    public String getRoleKey() {
-        return roleKey;
+    public String getModuleKeys() {
+        return moduleKeys;
     }
 
-    public void setRoleKey(String roleKey) {
-        this.roleKey = roleKey == null ? null : roleKey.trim();
+    public void setModuleKeys(String moduleKeys) {
+        this.moduleKeys = moduleKeys;
     }
 
     public List<Resource> getChildren() {
