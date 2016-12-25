@@ -9,12 +9,14 @@ Ext.define('Module.account.QueryPanel', {
     isQueryPage : true,
     plugins     : {ptype: 'cellediting', clicksToEdit: 1},
     rootVisible : false,
-    requires        : ['Module.account.AddOrEditWin'],
+    requires        : ['Module.account.AddOrEditWin','Module.permission.role.QueryPanel'],
     initComponent : function() {
         this.callParent();
     },
     buildFields     : function() {
         return [
+            'id',
+            'corpId',
             'name',
             'mobilePhone',
             'email',
@@ -38,27 +40,94 @@ Ext.define('Module.account.QueryPanel', {
         };
         var roleMangeListeners = {
             click:function(thisCmp, e, eOpts ){
-                var win = new ExtUx.window.SaveOnCloseWin({
-                    width:200,height:200,modal:true,title         : '权限管理',
-                    items         : {xtype:'accountaddoreditform'}
+                var params = {
+                        'selectAccount.id' : thiz.ownerGrid.getSp('id'),
+                        'selectAccount.corpId' : thiz.ownerGrid.getSp('corpId'),
+                        'selectAccount.bizModuleKey' : thiz.ownerGrid.getSp('bizModuleKey')
+                };
+                var saveParams;
+                var win  = new ExtUx.window.SaveOnCloseWin({
+                    width:700,height:400,modal:true,title         : '角色管理',
+                    items         : {
+                        xtype:'perminssionrolepanel',
+                        //角色窗口中的gridpanel监听事件
+                        listeners : {
+                            checkboxSelect : function(selected){
+                                if(selected.length !=0 ){
+                                    var record = selected[0];
+                                    saveParams = {
+                                        corpModuleRole:{
+                                            id : record.get('id'),
+                                            moduleKey : record.get('moduleKey')
+                                        }
+                                    };
+                                }else{
+                                    saveParams = null;
+                                }
+                            },
+                            afterrender :function(thisCmp, eOpts ){
+                                //数据加载完后选择
+                                thisCmp.getStore().on('load',function(thisStore, records, successful, eOpts ){
+                                    thisCmp.getSelectionModel().select(5,true,false) ;
+                                });
+                            }
+                        }
+                    },
+                    //角色窗口监听事件
+                   listeners     : {
+                        afterrender : function( thisCmp, eOpts ){
+                            Ext.Function.defer(function(){
+                                thisCmp.getComponent(0).load(params);
+                            }, 400);
+                        },
+                        saveclick   : function(thisCmp,btn){
+                            if(Ext.isEmpty(saveParams)){
+                                return Msg.error('未选择角色!');
+                            }
+                            if(params.bizModuleKey != saveParams.moduleKey){
+                                return Msg.error('业务模块不符合,请重新选择!');
+                            }
+
+                        }
+                    }
                 });
                 win.show();
             }
         };
+        var thiz = this;
         var accountEditListeners = {
             click:function(thisCmp, e, eOpts ){
+                var params = {
+                    id : thiz.ownerGrid.getSp('id'),
+                    corpId : thiz.ownerGrid.getSp('corpId')
+                };
                 var win = new Module.account.AddOrEditWin({
-                    width:300,height:200,title         : '账户修改',
-                    listeners : {
+                    width       :   300,
+                    height      :   200,
+                    title       : '账户修改',
+                    listeners   : {
                         afterrender : function( thisCmp, eOpts ){
                             var cfg = {
-                                url : SysConfig.ctx + '/account/listByPage.do'
+                                url : SysConfig.ctx + '/account/queryAccountById.do',
+                                params  : params
                             };
 
                             Ext.Function.defer(function(){
                                 thisCmp.getComponent(0).load(cfg);
-                            }, 50);
+                            }, 500);
+                        },
+                        saveclick   : function(thisCmp,btn){
+                            var cfg = {
+                                url : SysConfig.ctx + '/account/saveAccount.do',
+                            };
+                            thisCmp.getComponent(0).submit(cfg);
+
+                            Ext.Function.defer(function(){
+                                thisCmp.close();
+                                thiz.ownerGrid.getStore().reload();
+                            }, 500);
                         }
+
                     }
                 });
 
@@ -66,15 +135,17 @@ Ext.define('Module.account.QueryPanel', {
             }
         };
         this.accountEdit = Ext.id();
+        this.roleEdit  = Ext.id();
         return  [
             {xtype  : 'button',text : '刷新',     listeners:refrushListeners    },
-            {xtype  : 'button',text : '权限管理', listeners:roleMangeListeners},
+            {itemId : this.roleEdit,xtype  : 'button',text : '角色管理',disabled:true, listeners:roleMangeListeners},
             {itemId : this.accountEdit,xtype  : 'button',text : '账户修改', disabled:true,listeners:accountEditListeners},
         ];
     },
     listeners : {
         rowclick:function(thisViewTable, record, tr, rowIndex, e, eOpts ){
             Util.getCmp(this.accountEdit).setDisabled(false);
+            Util.getCmp(this.roleEdit).setDisabled(false);
         }
     }
 });
