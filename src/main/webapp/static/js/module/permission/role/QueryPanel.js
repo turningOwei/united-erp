@@ -3,7 +3,8 @@
  * @date 2016-12-17
  */
 Ext.define('Module.permission.role.QueryPanel', {
-    dataUrl     :  SysConfig.ctx + '/permission/role/listNotGeneralManager.do',
+    //dataUrl     :  SysConfig.ctx + '/permission/role/listNotGeneralManager.do',
+    dataUrl     :  SysConfig.ctx + '/permission/role/listRoleByCorpIdAndAccountId.do',
     extend 		: 'ExtUx.grid.CusGrid',
     xtype  		: 'perminssionrolepanel',
     isQueryPage : true,
@@ -39,7 +40,8 @@ Ext.define('Module.permission.role.QueryPanel', {
             'roleAliasName',
             'bizSuperadmin',
             'remark',
-            'description'
+            'description',
+            'checked'
         ];
     },
     buildColumns	: function() {
@@ -52,5 +54,6 @@ Ext.define('Module.permission.role.QueryPanel', {
             {text : '描述', dataIndex : 'description',width:160},
         ];
     }
+
 
 });
