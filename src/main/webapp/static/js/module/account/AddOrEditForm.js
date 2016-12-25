@@ -22,5 +22,13 @@ Ext.define('Module.account.AddOrEditForm', {
         hidden:true,
         name: 'bizModuleKey',
         allowBlank: false
+    },{
+        fieldLabel: 'id',
+        hidden:true,
+        name: 'id',
+    },{
+        fieldLabel: '公司Id',
+        hidden:true,
+        name: 'corpId',
     }]
 });
