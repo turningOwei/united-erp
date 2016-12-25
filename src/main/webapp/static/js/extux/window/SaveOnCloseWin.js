@@ -14,7 +14,7 @@ Ext.define('ExtUx.window.SaveOnCloseWin', {
 	submitLabel   : '提交',
 	initComponent : function() {
 		var buttons = this.buildButtons();
-		Ext.applyIf(this,{
+		Ext.apply(this,{
 			buttons : buttons
 		});
 		this.callParent();
