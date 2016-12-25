@@ -38,6 +38,16 @@ Ext.define('Module.account.QueryPanel', {
                 thiz.store.reload();
             }
         };
+        var gridAfterrender = function(thisCmp, eOpts ){
+            //数据加载完后选择
+            thisCmp.getStore().on('load',function(thisStore, records, successful, eOpts ){
+                for(var i = 0;i < records.length;i++){
+                    if(records[i].get('checked')){
+                        thisCmp.getSelectionModel().select(i,true,false) ;
+                    }
+                }
+            });
+        };
         var roleMangeListeners = {
             click:function(thisCmp, e, eOpts ){
                 var params = {
@@ -65,12 +75,7 @@ Ext.define('Module.account.QueryPanel', {
                                     saveParams = null;
                                 }
                             },
-                            afterrender :function(thisCmp, eOpts ){
-                                //数据加载完后选择
-                                thisCmp.getStore().on('load',function(thisStore, records, successful, eOpts ){
-                                    thisCmp.getSelectionModel().select(5,true,false) ;
-                                });
-                            }
+                            afterrender : gridAfterrender
                         }
                     },
                     //角色窗口监听事件
