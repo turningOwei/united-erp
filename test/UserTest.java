@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 /**
  * Created by turningOwei on 2016/11/29.
  */
-@RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
+@RunWith(SpringJUnit4ClassRunner.class)     //缁ф壙SpringJUnit4ClassRunner
 @ContextConfiguration(locations = {"classpath:config/spring/spring.xml"})
 public class UserTest {
     private static Logger log = org.slf4j.LoggerFactory.getLogger(UserTest.class);
