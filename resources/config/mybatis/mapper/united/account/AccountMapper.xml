@@ -3,8 +3,8 @@
 <mapper namespace="com.united.account.dao.AccountMapper">
   <resultMap id="BaseResultMap" type="com.united.account.dao.entity.Account">
     <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="corp_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="corp_id" javaType="java.lang.Long" jdbcType="BIGINT" />
       <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="mobile_phone" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -12,32 +12,45 @@
       <arg column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="biz_module_key" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <!--关联字段-->
+      <arg column="biz_superadmin" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="role_alias_name" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, corp_id, name, password, mobile_phone, email, create_date, update_date, biz_module_key
+    id, corp_id, name, password, mobile_phone, email, create_date, update_date, biz_module_key,'' as biz_superadmin,'' as role_name,'' as role_alias_name
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_account
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+	 ta.*, '' as biz_superadmin,tcmr.role_name,'' as role_alias_name
+    FROM
+        t_account ta
+    left join t_account_role tar on ta.corp_id=tar.corp_id and ta.id=tar.account_id
+    LEFT JOIN t_corp_module_role tcmr ON tar.corp_id=tcmr.corp_id and tar.module_role_id=tcmr.id
+    where ta.id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectAllByCorp" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_account
-    where corp_id = #{corpId,jdbcType=INTEGER}
+  <select id="selectAllByCorp" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT
+      ta.*,tcmr.biz_superadmin, tcmr.role_name,
+      tcmr.role_alias_name
+  FROM
+      t_account ta
+  LEFT JOIN t_account_role tar ON ta.corp_id = tar.corp_id
+        AND ta.id = tar.account_id
+  LEFT JOIN t_corp_module_role tcmr ON tar.corp_id = tcmr.corp_id
+        AND tar.module_role_id = tcmr.id
+    where ta.corp_id  = #{corpId,jdbcType=INTEGER}
   </select>
-  <select id="selectAllByCorpCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  <select id="selectAllByCorpCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
     select count(1)
     from t_account
     where corp_id = #{corpId,jdbcType=INTEGER}
   </select>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_account
     where id = #{id,jdbcType=INTEGER}
   </delete>
