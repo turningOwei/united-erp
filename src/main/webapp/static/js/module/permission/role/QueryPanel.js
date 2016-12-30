@@ -20,7 +20,7 @@ Ext.define('Module.permission.role.QueryPanel', {
                 checkOnly : true,
                 listeners : {
                 selectionchange:function( thisCmp, selected, eOpts ){
-                    thiz.fireEvent('checkboxSelect',selected);
+                    thiz.fireEvent('checkboxSelect',thiz,selected);
                 },
                 scope : this
 

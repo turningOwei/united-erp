@@ -1,5 +1,5 @@
 Ext.define('Module.account.AddOrEditForm', {
-    //requires      : ['ExtUx.window.SaveOnCloseWin'],
+    requires      : ['Module.permission.role.RoleLocalCombobox'],
     xtype         : 'accountaddoreditform',
     extend 		  : 'ExtUx.form.CusForm',
     defaults: {
@@ -16,11 +16,12 @@ Ext.define('Module.account.AddOrEditForm', {
     },{
         fieldLabel: '电子邮件',
         name: 'email',
-        allowBlank: false
+        allowBlank: true
     },{
-        fieldLabel: 'bizModuleKey',
-        hidden:true,
+        xtype:'roleremotecombobox',
+        fieldLabel: '角色',
         name: 'bizModuleKey',
+        rawProp	 : 'roleName',
         allowBlank: false
     },{
         fieldLabel: 'id',

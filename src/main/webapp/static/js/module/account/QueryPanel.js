@@ -20,7 +20,10 @@ Ext.define('Module.account.QueryPanel', {
             'name',
             'mobilePhone',
             'email',
-            'bizModuleKey'
+            'bizModuleKey',
+            'bizSuperadmin',
+            'roleAliasName',
+            'roleName'
         ];
     },
     buildColumns	: function() {
@@ -28,7 +31,9 @@ Ext.define('Module.account.QueryPanel', {
             {text : '姓名',     dataIndex : 'name',width:200},
             {text : '联系电话', dataIndex : 'mobilePhone',width : 160},
             {text : '邮件地址', dataIndex : 'email',width:160},
-            {text : '所属业务', dataIndex : 'bizModuleKey',width:160}
+            {text : '所属业务', dataIndex : 'bizModuleKey',width:160},
+            {text : '角色名称', dataIndex : 'roleName',width:160},
+            {text : '权限别名(员工职称)', dataIndex : 'roleName',width:160}
         ];
     },
     buildTbar       : function(){
@@ -42,8 +47,9 @@ Ext.define('Module.account.QueryPanel', {
             //数据加载完后选择
             thisCmp.getStore().on('load',function(thisStore, records, successful, eOpts ){
                 for(var i = 0;i < records.length;i++){
-                    if(records[i].get('checked')){
-                        thisCmp.getSelectionModel().select(i,true,false) ;
+                    var record = records[i];
+                    if(record.get('checked')){
+                        thisCmp.getSelectionModel().select(i,false,false) ;
                     }
                 }
             });
@@ -62,7 +68,7 @@ Ext.define('Module.account.QueryPanel', {
                         xtype:'perminssionrolepanel',
                         //角色窗口中的gridpanel监听事件
                         listeners : {
-                            checkboxSelect : function(selected){
+                            checkboxSelect : function(thisCmp,selected){
                                 if(selected.length !=0 ){
                                     var record = selected[0];
                                     saveParams = {
@@ -86,13 +92,12 @@ Ext.define('Module.account.QueryPanel', {
                             }, 400);
                         },
                         saveclick   : function(thisCmp,btn){
-                            if(Ext.isEmpty(saveParams)){
+                            /*if(Ext.isEmpty(saveParams)){
                                 return Msg.error('未选择角色!');
-                            }
-                            if(params.bizModuleKey != saveParams.moduleKey){
+                            }*/
+                            /*if(params.bizModuleKey != saveParams.moduleKey){
                                 return Msg.error('业务模块不符合,请重新选择!');
-                            }
-
+                            }*/
                         }
                     }
                 });
@@ -108,7 +113,7 @@ Ext.define('Module.account.QueryPanel', {
                 };
                 var win = new Module.account.AddOrEditWin({
                     width       :   300,
-                    height      :   200,
+                    height      :   300,
                     title       : '账户修改',
                     listeners   : {
                         afterrender : function( thisCmp, eOpts ){
@@ -127,10 +132,10 @@ Ext.define('Module.account.QueryPanel', {
                             };
                             thisCmp.getComponent(0).submit(cfg);
 
-                            Ext.Function.defer(function(){
+                            /*Ext.Function.defer(function(){
                                 thisCmp.close();
                                 thiz.ownerGrid.getStore().reload();
-                            }, 500);
+                            }, 500);*/
                         }
 
                     }
@@ -139,10 +144,13 @@ Ext.define('Module.account.QueryPanel', {
                 win.show();
             }
         };
+        this.accountAdd = Ext.id();
         this.accountEdit = Ext.id();
         this.roleEdit  = Ext.id();
+        var accountAddListener = this.buildAccountAddListener();
         return  [
             {xtype  : 'button',text : '刷新',     listeners:refrushListeners    },
+            {itemId : this.accountAdd,xtype  : 'button',text : '账户添加',disabled:false, listeners:accountAddListener},
             {itemId : this.roleEdit,xtype  : 'button',text : '角色管理',disabled:true, listeners:roleMangeListeners},
             {itemId : this.accountEdit,xtype  : 'button',text : '账户修改', disabled:true,listeners:accountEditListeners},
         ];
@@ -150,7 +158,56 @@ Ext.define('Module.account.QueryPanel', {
     listeners : {
         rowclick:function(thisViewTable, record, tr, rowIndex, e, eOpts ){
             Util.getCmp(this.accountEdit).setDisabled(false);
-            Util.getCmp(this.roleEdit).setDisabled(false);
+            //总经理不能修改
+            if(!(record.get('bizSuperadmin')==2)){
+                Util.getCmp(this.roleEdit).setDisabled(false);
+            }else{
+                Util.getCmp(this.roleEdit).setDisabled(true);
+            }
         }
+    },
+
+    buildAccountAddListener : function () {
+        var listener = {
+            click: function (thisCmp, e, eOpts) {
+                var win = new Module.account.AddOrEditWin({
+                    width       :   300,
+                    height      :   300,
+                    title       : '账户添加',
+                    listeners   : {
+                        /*afterrender : function( thisCmp, eOpts ){
+                            var cfg = {
+                                url : SysConfig.ctx + '/account/queryAccountById.do',
+                                params  : params
+                            };
+
+                            Ext.Function.defer(function(){
+                                thisCmp.getComponent(0).load(cfg);
+                            }, 500);
+                        },*/
+                        saveclick   : function(thisCmp,btn){
+                            var cfg = {
+                                url : SysConfig.ctx + '/account/saveAccount.do',
+                                success: function (form, action){
+                                    alert(222);
+                                }
+                            };
+                            console.log(thisCmp.getComponent(0));
+                            thisCmp.getComponent(0).submit(cfg);
+
+                           /* Ext.Function.defer(function(){
+                                thisCmp.close();
+                                thiz.ownerGrid.getStore().reload();
+                            }, 500);*/
+                        }
+
+                    }
+                });
+
+                win.show();
+            }
+        }
+        return listener;
     }
+
 });
