@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.page.PageParam;
 import com.united.account.dao.entity.Account;
 import com.united.account.service.AccountService;
+import com.united.permission.dao.entity.CorpModuleRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +52,7 @@ public class AccountCtrl {
 
     @RequestMapping("/saveAccount.do")
     @ResponseBody
-    public ExtJsonForm saveAccount(Account account) {
+    public ExtJsonForm saveAccount(Account account,CorpModuleRole corpModuleRole) {
         Account entity = accountService.saveOrUpdateAccount(account);
         return new ExtJsonForm(true,entity);
     }
