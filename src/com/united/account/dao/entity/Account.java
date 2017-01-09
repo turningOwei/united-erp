@@ -1,55 +1,66 @@
 package com.united.account.dao.entity;
 
+
+import javax.persistence.*;
 import java.util.Date;
-
+@Entity
+@Table(name="T_ACCOUNT")
 public class Account {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="OID")
+    private Long oid;
 
-    private Integer corpId;
+    @Column(name="CORP_ID")
+    private Long corpId;
 
+    @Column(name="NAME")
     private String name;
 
-    private String password;
+    @Column(name="PWD")
+    private String pwd;
 
+    @Column(name="MOBILE_PHONE")
     private String mobilePhone;
 
+    @Column(name="EMAIL")
     private String email;
 
+    @Column(name="CREATE_DATE")
     private Date createDate;
 
+    @Column(name="UPDATE_DATE")
     private Date updateDate;
 
-    private String bizModuleKey;
 
-    public Account(Integer id, Integer corpId, String name, String password, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
-        this.id = id;
+    public Account(Long oid, Long corpId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
+        this.oid = oid;
         this.corpId = corpId;
         this.name = name;
-        this.password = password;
+        this.pwd = pwd;
         this.mobilePhone = mobilePhone;
         this.email = email;
         this.createDate = createDate;
         this.updateDate = updateDate;
-        this.bizModuleKey = bizModuleKey;
     }
 
     public Account() {
         super();
     }
 
-    public Integer getId() {
-        return id;
+    public Long getOid() {
+        return oid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOid(Long oid) {
+        this.oid = oid;
     }
 
-    public Integer getCorpId() {
+    public Long getCorpId() {
         return corpId;
     }
 
-    public void setCorpId(Integer corpId) {
+    public void setCorpId(Long corpId) {
         this.corpId = corpId;
     }
 
@@ -61,12 +72,12 @@ public class Account {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwd() {
+        return pwd;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 
     public String getMobilePhone() {
@@ -101,11 +112,4 @@ public class Account {
         this.updateDate = updateDate;
     }
 
-    public String getBizModuleKey() {
-        return bizModuleKey;
-    }
-
-    public void setBizModuleKey(String bizModuleKey) {
-        this.bizModuleKey = bizModuleKey;
-    }
 }
