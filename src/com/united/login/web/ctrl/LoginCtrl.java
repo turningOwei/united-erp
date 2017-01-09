@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.united.account.dao.entity.Account;
 import com.united.account.service.AccountService;
 import com.united.login.pojo.IndexResult;
+import com.united.permission.dao.entity.Resource;
 import com.united.permission.dao.entity.SysResource;
+import com.united.permission.service.ResourceService;
 import com.united.permission.service.SysResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,10 +26,15 @@ public class LoginCtrl {
     private SysResourceService sysResourceService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private ResourceService resourceService;
 
     @RequestMapping("/index.do")
     public ModelAndView login(Account account,ModelMap modelMap,ServletWebRequest request){
         ModelAndView mv = new ModelAndView("view/index");
+
+        //判断是否登录
+
         String ctx = request.getContextPath();
         modelMap.put("ctx", ctx);
         modelMap.put("staticPath", ctx+"/static");
@@ -40,7 +47,11 @@ public class LoginCtrl {
     private IndexResult getResult(Account account){
         IndexResult result = new IndexResult();
         SysResource rootNode = sysResourceService.getRootNode();
+       /* Resource rootNode = resourceService.getRootNodeByAccount(account);
+        result.setMenuData(rootNode);*/
         result.setMenuData(rootNode);
         return result;
     }
+
+
 }
