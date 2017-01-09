@@ -21,6 +21,7 @@ public class AccountRole implements Serializable{
     private Long deptRoleId;
 
     public AccountRole() {
+
     }
 
     public AccountRole(Long accountId, Long deptRoleId) {
