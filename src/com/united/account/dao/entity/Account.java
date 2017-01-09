@@ -1,13 +1,15 @@
 package com.united.account.dao.entity;
 
 
+import com.united.permission.dao.entity.AccountRole;
+
 import javax.persistence.*;
 import java.util.Date;
 @Entity
 @Table(name="T_ACCOUNT")
 public class Account {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.TABLE)
     @Column(name="OID")
     private Long oid;
 
@@ -32,6 +34,9 @@ public class Account {
     @Column(name="UPDATE_DATE")
     private Date updateDate;
 
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=AccountRole.class)
+    @JoinColumn(name="ACCOUNT_ID",updatable=false)//指定一个外键，也可以不指定。//nullable=false,
+    private AccountRole accountRole;
 
     public Account(Long oid, Long corpId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
         this.oid = oid;
@@ -112,4 +117,11 @@ public class Account {
         this.updateDate = updateDate;
     }
 
+    public AccountRole getAccountRole() {
+        return accountRole;
+    }
+
+    public void setAccountRole(AccountRole accountRole) {
+        this.accountRole = accountRole;
+    }
 }
