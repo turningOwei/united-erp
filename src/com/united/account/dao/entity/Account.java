@@ -34,8 +34,8 @@ public class Account {
     @Column(name="UPDATE_DATE")
     private Date updateDate;
 
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=AccountRole.class)
-    @JoinColumn(name="ACCOUNT_ID",updatable=false)//指定一个外键，也可以不指定。//nullable=false,
+    @OneToOne(cascade=CascadeType.ALL,targetEntity=AccountRole.class)
+    @JoinColumn(name="OID", referencedColumnName="ACCOUNT_ID",insertable = false, updatable = false)
     private AccountRole accountRole;
 
     public Account(Long oid, Long corpId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
