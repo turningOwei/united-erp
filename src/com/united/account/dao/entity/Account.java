@@ -1,6 +1,7 @@
 package com.united.account.dao.entity;
 
 
+import com.united.corp.dao.entity.SysDepartment;
 import com.united.permission.dao.entity.AccountRole;
 
 import javax.persistence.*;
@@ -15,6 +16,9 @@ public class Account {
 
     @Column(name="CORP_ID")
     private Long corpId;
+
+    @Column(name="DEPT_ID")
+    private Long deptId;
 
     @Column(name="NAME")
     private String name;
@@ -38,9 +42,14 @@ public class Account {
     @JoinColumn(name="OID", referencedColumnName="ACCOUNT_ID",insertable = false, updatable = false)
     private AccountRole accountRole;
 
-    public Account(Long oid, Long corpId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
+    @OneToOne(cascade=CascadeType.ALL,targetEntity=SysDepartment.class)
+    @JoinColumn(name="OID", insertable = false, updatable = false)
+    private SysDepartment sysDepartment;
+
+    public Account(Long oid, Long corpId,Long deptId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
         this.oid = oid;
         this.corpId = corpId;
+        this.deptId = deptId;
         this.name = name;
         this.pwd = pwd;
         this.mobilePhone = mobilePhone;
@@ -123,5 +132,21 @@ public class Account {
 
     public void setAccountRole(AccountRole accountRole) {
         this.accountRole = accountRole;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public SysDepartment getSysDepartment() {
+        return sysDepartment;
+    }
+
+    public void setSysDepartment(SysDepartment sysDepartment) {
+        this.sysDepartment = sysDepartment;
     }
 }
