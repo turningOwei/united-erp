@@ -43,8 +43,11 @@ public class Account {
     private AccountRole accountRole;
 
     @OneToOne(cascade=CascadeType.ALL,targetEntity=SysDepartment.class)
-    @JoinColumn(name="OID", insertable = false, updatable = false)
+    @JoinColumn(name="DEPT_ID", referencedColumnName="OID",insertable = false, updatable = false)
     private SysDepartment sysDepartment;
+
+    @Transient
+    private String departmentName;
 
     public Account(Long oid, Long corpId,Long deptId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
         this.oid = oid;
@@ -147,6 +150,17 @@ public class Account {
     }
 
     public void setSysDepartment(SysDepartment sysDepartment) {
+        if(sysDepartment!=null){
+            this.departmentName = sysDepartment.getName();
+        }
         this.sysDepartment = sysDepartment;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }
