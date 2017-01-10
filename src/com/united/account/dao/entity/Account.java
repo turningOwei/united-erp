@@ -1,14 +1,16 @@
 package com.united.account.dao.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.united.corp.dao.entity.SysDepartment;
-import com.united.permission.dao.entity.AccountRole;
+import com.united.permission.dao.entity.SysDeptRole;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Table(name="T_ACCOUNT")
-public class Account {
+public class Account implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
     @Column(name="OID")
@@ -19,6 +21,9 @@ public class Account {
 
     @Column(name="DEPT_ID")
     private Long deptId;
+
+    @Column(name="DEPT_ROLE_ID")
+    private Long deptRoleId;
 
     @Column(name="NAME")
     private String name;
@@ -38,27 +43,36 @@ public class Account {
     @Column(name="UPDATE_DATE")
     private Date updateDate;
 
-    @OneToOne(cascade=CascadeType.ALL,targetEntity=AccountRole.class)
-    @JoinColumn(name="OID", referencedColumnName="ACCOUNT_ID",insertable = false, updatable = false)
-    private AccountRole accountRole;
 
-    @OneToOne(cascade=CascadeType.ALL,targetEntity=SysDepartment.class)
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY,targetEntity=SysDepartment.class)//cascade=CascadeType.ALL,
     @JoinColumn(name="DEPT_ID", referencedColumnName="OID",insertable = false, updatable = false)
     private SysDepartment sysDepartment;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY,targetEntity=SysDeptRole.class)//cascade=CascadeType.ALL,
+    @JoinColumn(name="DEPT_ROLE_ID", referencedColumnName="OID",insertable = false, updatable = false)
+    private SysDeptRole sysDeptRole;
 
     @Transient
     private String departmentName;
 
-    public Account(Long oid, Long corpId,Long deptId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, String bizModuleKey) {
-        this.oid = oid;
+    @Transient
+    private String roleName;
+
+    public Account(Long corpId, Long deptId, Long deptRoleId, String name, String pwd, String mobilePhone, String email, Date createDate, Date updateDate, SysDepartment sysDepartment, String departmentName, String roleName) {
         this.corpId = corpId;
         this.deptId = deptId;
+        this.deptRoleId = deptRoleId;
         this.name = name;
         this.pwd = pwd;
         this.mobilePhone = mobilePhone;
         this.email = email;
         this.createDate = createDate;
         this.updateDate = updateDate;
+        this.sysDepartment = sysDepartment;
+        this.departmentName = departmentName;
+        this.roleName = roleName;
     }
 
     public Account() {
@@ -129,14 +143,6 @@ public class Account {
         this.updateDate = updateDate;
     }
 
-    public AccountRole getAccountRole() {
-        return accountRole;
-    }
-
-    public void setAccountRole(AccountRole accountRole) {
-        this.accountRole = accountRole;
-    }
-
     public Long getDeptId() {
         return deptId;
     }
@@ -150,9 +156,6 @@ public class Account {
     }
 
     public void setSysDepartment(SysDepartment sysDepartment) {
-        if(sysDepartment!=null){
-            this.departmentName = sysDepartment.getName();
-        }
         this.sysDepartment = sysDepartment;
     }
 
@@ -162,5 +165,29 @@ public class Account {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Long getDeptRoleId() {
+        return deptRoleId;
+    }
+
+    public void setDeptRoleId(Long deptRoleId) {
+        this.deptRoleId = deptRoleId;
+    }
+
+    public SysDeptRole getSysDeptRole() {
+        return sysDeptRole;
+    }
+
+    public void setSysDeptRole(SysDeptRole sysDeptRole) {
+        this.sysDeptRole = sysDeptRole;
     }
 }
