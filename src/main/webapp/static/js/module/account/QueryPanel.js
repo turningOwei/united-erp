@@ -110,11 +110,11 @@ Ext.define('Module.account.QueryPanel', {
         rowclick:function(thisViewTable, record, tr, rowIndex, e, eOpts ){
             Util.getCmp(this.accountEdit).setDisabled(false);
             //总经理不能修改
-            if(!(record.get('bizSuperadmin')==2)){
+           /* if(!(record.get('bizSuperadmin')==2)){
                 Util.getCmp(this.roleEdit).setDisabled(false);
             }else{
                 Util.getCmp(this.roleEdit).setDisabled(true);
-            }
+            }*/
         }
     },
 
