@@ -15,19 +15,22 @@ Ext.define('Module.account.QueryPanel', {
     },
     buildFields     : function() {
         return [
-            'id',
+            'oid',
             'corpId',
+            'deptId',
+            'pwd',
+            'departmentName',
             'name',
             'mobilePhone',
             'email',
-            'bizModuleKey',
-            'bizSuperadmin',
+            'deptRoleId',
             'roleAliasName',
             'roleName'
         ];
     },
     buildColumns	: function() {
         return [
+            {text : '部门',     dataIndex : 'departmentName',width:200},
             {text : '姓名',     dataIndex : 'name',width:200},
             {text : '联系电话', dataIndex : 'mobilePhone',width : 160},
             {text : '邮件地址', dataIndex : 'email',width:160},
@@ -108,7 +111,7 @@ Ext.define('Module.account.QueryPanel', {
         var accountEditListeners = {
             click:function(thisCmp, e, eOpts ){
                 var params = {
-                    id : thiz.ownerGrid.getSp('id'),
+                    oid : thiz.ownerGrid.getSp('oid'),
                     corpId : thiz.ownerGrid.getSp('corpId')
                 };
                 var win = new Module.account.AddOrEditWin({
@@ -129,13 +132,12 @@ Ext.define('Module.account.QueryPanel', {
                         saveclick   : function(thisCmp,btn){
                             var cfg = {
                                 url : SysConfig.ctx + '/account/saveAccount.do',
+                                success : function(action,form){
+                                    thiz.ownerGrid.getStore().reload();
+                                }
                             };
                             thisCmp.getComponent(0).submit(cfg);
 
-                            /*Ext.Function.defer(function(){
-                                thisCmp.close();
-                                thiz.ownerGrid.getStore().reload();
-                            }, 500);*/
                         }
 
                     }
