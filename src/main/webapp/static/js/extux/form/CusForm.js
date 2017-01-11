@@ -2,6 +2,9 @@ Ext.define('ExtUx.form.CusForm', {
 	bodyPadding : '10px',
 	extend      : 'Ext.form.Panel',
 	defaultType : 'textfield',
+	initComponent : function() {
+		this.callParent();
+	},
 	getValues   : function (b) {
 		return this.getForm().getValues(b);
 	},
@@ -10,6 +13,10 @@ Ext.define('ExtUx.form.CusForm', {
 	},
 	isValid	  	: function () {
 		return this.getForm().isValid();
+	},
+	getRecord	: function(){
+		console.log(this.getForm().getRecord);
+		return this.getForm().getRecord();
 	},
 	clrForm	  	: function () {
 		var values = this.getValues();
@@ -132,6 +139,7 @@ Ext.define('ExtUx.form.CusForm', {
 		}
 	},
 	setCusRawValues    : function(form, data) {
+		var thiz = this;
 		/**
 		 * 加载表单数据时 显示displayName 只对combox有效
 		 */
@@ -149,8 +157,11 @@ Ext.define('ExtUx.form.CusForm', {
 					json		= Ext.decode(jsonStr);
 
 				field.displayTplData = json;
-				field.setRawValue(field.getDisplayValue());				
+				field.setRawValue(field.getDisplayValue());
+				//方便设置参数
+				thiz.fireEvent('setRawValueEvent',field,name,data[name]);
 			}
 		});
+
 	}
 });
