@@ -119,9 +119,11 @@ Ext.define('Module.account.QueryPanel', {
     },
 
     buildAccountAddListener : function () {
+        var thiz = this;
         var listener = {
             click: function (thisCmp, e, eOpts) {
-                var win = new Module.account.AddOrEditWin({
+                var win = null;
+                win = new Module.account.AddOrEditWin({
                     width       :   300,
                     height      :   300,
                     title       : '账户添加',
@@ -130,7 +132,8 @@ Ext.define('Module.account.QueryPanel', {
                             var cfg = {
                                 url : SysConfig.ctx + '/account/saveAccount.do',
                                 success: function (form, action){
-                                    alert(222);
+                                    thiz.ownerGrid.getStore().reload();
+                                    win.close();
                                 }
                             };
                             thisCmp.getComponent(0).submit(cfg);
