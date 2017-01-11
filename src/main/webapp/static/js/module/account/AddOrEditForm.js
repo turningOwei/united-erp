@@ -27,7 +27,8 @@ Ext.define('Module.account.AddOrEditForm', {
             select : function( combo, record, eOpts ){
                 Util.getCmp('roleItemId').params={
                     deptId:record.get("oid")
-                }
+                };
+                Util.getCmp('roleItemId').reset();
             },
             scope : this
         },
