@@ -18,17 +18,29 @@ Ext.define('Module.account.AddOrEditForm', {
         name: 'email',
         allowBlank: true
     },{
-        xtype     :'corpdeptcombobox',
+        xtype     : 'corpdeptcombobox',
         fieldLabel: '部门',
         name      : 'deptId',
         rawProp	  : 'departmentName',
-        allowBlank: false
+        allowBlank: false,
+        listeners : {
+            select : function( combo, record, eOpts ){
+                Util.getCmp('roleItemId').params={
+                    deptId:record.get("oid")
+                }
+            },
+            scope : this
+        },
+        scope : this
     },{
+        itemId      : 'roleItemId',
         xtype       : 'roleremotecombobox',
         fieldLabel  : '角色',
         name        : 'deptRoleId',
         rawProp	    : 'roleName',
-        allowBlank  :  false
+        allowBlank  :  false,
+        //部门选择后每次都是重载
+        queryCaching:  false
     },{
         fieldLabel: 'pwd',
         hidden:true,
@@ -41,5 +53,14 @@ Ext.define('Module.account.AddOrEditForm', {
         fieldLabel: '公司Id',
         hidden:true,
         name: 'corpId',
-    }]
+    }],
+    listeners : {
+        setRawValueEvent : function(field,name,rawValue){
+            if(name == 'deptId'){
+                Util.getCmp('roleItemId').params={
+                    deptId:rawValue
+                }
+            }
+        }
+    }
 });
