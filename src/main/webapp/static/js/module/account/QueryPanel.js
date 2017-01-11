@@ -57,56 +57,6 @@ Ext.define('Module.account.QueryPanel', {
                 }
             });
         };
-        var roleMangeListeners = {
-            click:function(thisCmp, e, eOpts ){
-                var params = {
-                        'selectAccount.id' : thiz.ownerGrid.getSp('id'),
-                        'selectAccount.corpId' : thiz.ownerGrid.getSp('corpId'),
-                        'selectAccount.bizModuleKey' : thiz.ownerGrid.getSp('bizModuleKey')
-                };
-                var saveParams;
-                var win  = new ExtUx.window.SaveOnCloseWin({
-                    width:700,height:400,modal:true,title         : '角色管理',
-                    items         : {
-                        xtype:'perminssionrolepanel',
-                        //角色窗口中的gridpanel监听事件
-                        listeners : {
-                            checkboxSelect : function(thisCmp,selected){
-                                if(selected.length !=0 ){
-                                    var record = selected[0];
-                                    saveParams = {
-                                        corpModuleRole:{
-                                            id : record.get('id'),
-                                            moduleKey : record.get('moduleKey')
-                                        }
-                                    };
-                                }else{
-                                    saveParams = null;
-                                }
-                            },
-                            afterrender : gridAfterrender
-                        }
-                    },
-                    //角色窗口监听事件
-                   listeners     : {
-                        afterrender : function( thisCmp, eOpts ){
-                            Ext.Function.defer(function(){
-                                thisCmp.getComponent(0).load(params);
-                            }, 400);
-                        },
-                        saveclick   : function(thisCmp,btn){
-                            /*if(Ext.isEmpty(saveParams)){
-                                return Msg.error('未选择角色!');
-                            }*/
-                            /*if(params.bizModuleKey != saveParams.moduleKey){
-                                return Msg.error('业务模块不符合,请重新选择!');
-                            }*/
-                        }
-                    }
-                });
-                win.show();
-            }
-        };
         var thiz = this;
         var accountEditListeners = {
             click:function(thisCmp, e, eOpts ){
@@ -153,7 +103,6 @@ Ext.define('Module.account.QueryPanel', {
         return  [
             {xtype  : 'button',text : '刷新',     listeners:refrushListeners    },
             {itemId : this.accountAdd,xtype  : 'button',text : '账户添加',disabled:false, listeners:accountAddListener},
-            {itemId : this.roleEdit,xtype  : 'button',text : '角色管理',disabled:true, listeners:roleMangeListeners},
             {itemId : this.accountEdit,xtype  : 'button',text : '账户修改', disabled:true,listeners:accountEditListeners},
         ];
     },
