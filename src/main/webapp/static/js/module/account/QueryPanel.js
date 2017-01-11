@@ -126,16 +126,6 @@ Ext.define('Module.account.QueryPanel', {
                     height      :   300,
                     title       : '账户添加',
                     listeners   : {
-                        /*afterrender : function( thisCmp, eOpts ){
-                            var cfg = {
-                                url : SysConfig.ctx + '/account/queryAccountById.do',
-                                params  : params
-                            };
-
-                            Ext.Function.defer(function(){
-                                thisCmp.getComponent(0).load(cfg);
-                            }, 500);
-                        },*/
                         saveclick   : function(thisCmp,btn){
                             var cfg = {
                                 url : SysConfig.ctx + '/account/saveAccount.do',
@@ -143,7 +133,6 @@ Ext.define('Module.account.QueryPanel', {
                                     alert(222);
                                 }
                             };
-                            console.log(thisCmp.getComponent(0));
                             thisCmp.getComponent(0).submit(cfg);
 
                            /* Ext.Function.defer(function(){
