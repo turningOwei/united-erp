@@ -1,5 +1,5 @@
 Ext.define('Module.account.AddOrEditForm', {
-    requires      : ['Module.permission.role.RoleLocalCombobox'],
+    requires      : ['Module.permission.role.RoleLocalCombobox','Module.corp.Department'],
     xtype         : 'accountaddoreditform',
     extend 		  : 'ExtUx.form.CusForm',
     defaults: {
@@ -18,15 +18,25 @@ Ext.define('Module.account.AddOrEditForm', {
         name: 'email',
         allowBlank: true
     },{
-        xtype:'roleremotecombobox',
-        fieldLabel: '角色',
-        name: 'bizModuleKey',
-        rawProp	 : 'roleName',
+        xtype     :'corpdeptcombobox',
+        fieldLabel: '部门',
+        name      : 'deptId',
+        rawProp	  : 'departmentName',
         allowBlank: false
     },{
-        fieldLabel: 'id',
+        xtype       : 'roleremotecombobox',
+        fieldLabel  : '角色',
+        name        : 'deptRoleId',
+        rawProp	    : 'roleName',
+        allowBlank  :  false
+    },{
+        fieldLabel: 'pwd',
         hidden:true,
-        name: 'id',
+        name: 'pwd',
+    },{
+        fieldLabel: 'oid',
+        hidden:true,
+        name: 'oid',
     },{
         fieldLabel: '公司Id',
         hidden:true,
