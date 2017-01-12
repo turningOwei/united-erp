@@ -31,15 +31,20 @@ public class SysDeptRole implements Serializable{
     @OneToMany(mappedBy = "roleId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SysRoleRes> sysRoleRes;
 
+    @Column(name="IS_SUPER_ADMIN")
+    private Boolean isSuperAdmin;
+
     public SysDeptRole() {
     }
 
-    public SysDeptRole(String name, String aliasName, String memo, Long deptId, List<SysRoleRes> sysRoleRes) {
+
+    public SysDeptRole(String name, String aliasName, String memo, Long deptId, List<SysRoleRes> sysRoleRes, Boolean isSuperAdmin) {
         this.name = name;
         this.aliasName = aliasName;
         this.memo = memo;
         this.deptId = deptId;
         this.sysRoleRes = sysRoleRes;
+        this.isSuperAdmin = isSuperAdmin;
     }
 
     public Long getOid() {
@@ -88,5 +93,13 @@ public class SysDeptRole implements Serializable{
 
     public void setSysRoleRes(List<SysRoleRes> sysRoleRes) {
         this.sysRoleRes = sysRoleRes;
+    }
+
+    public Boolean getIsSuperAdmin() {
+        return isSuperAdmin;
+    }
+
+    public void setIsSuperAdmin(Boolean isSuperAdmin) {
+        this.isSuperAdmin = isSuperAdmin;
     }
 }
