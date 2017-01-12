@@ -11,4 +11,6 @@ public interface SysDeptRoleService {
     List<SysDeptRole> listNotGeneralMager(Long deptId);
 
     public SysDeptRole getDeptSuperAdmin(Long deptId);
+
+    List<SysDeptRole> getAll();
 }

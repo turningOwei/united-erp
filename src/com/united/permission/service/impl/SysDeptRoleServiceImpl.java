@@ -39,4 +39,17 @@ public class SysDeptRoleServiceImpl implements SysDeptRoleService {
         map.put("isSuperAdmin",true);
         return  sysDeptRoleDao.getEquals(map);
     }
+
+    @Override
+    public List<SysDeptRole> getAll() {
+        List<SysDeptRole> list = sysDeptRoleDao.getAll();
+        if(list!=null&&list.size()>0){
+            for (SysDeptRole sysDeptRole : list) {
+                if(sysDeptRole.getSysDepartment()!=null){
+                    sysDeptRole.setDepartmentName(sysDeptRole.getSysDepartment().getName());
+                }
+            }
+        }
+        return list;
+    }
 }
