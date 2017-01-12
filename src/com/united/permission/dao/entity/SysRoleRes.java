@@ -23,6 +23,7 @@ public class SysRoleRes {
     @Column(name="RESOURCE_ID")
     private Long resourceId;
 
+
     @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=SysResource.class)
     @JoinColumn(name="OID",updatable=false)//指定一个外键，也可以不指定。//nullable=false,
     private SysResource sysResource;
@@ -67,4 +68,5 @@ public class SysRoleRes {
     public void setSysResource(SysResource sysResource) {
         this.sysResource = sysResource;
     }
+
 }

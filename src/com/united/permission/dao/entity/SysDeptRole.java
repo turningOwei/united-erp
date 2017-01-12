@@ -1,5 +1,8 @@
 package com.united.permission.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.united.corp.dao.entity.SysDepartment;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -33,6 +36,14 @@ public class SysDeptRole implements Serializable{
 
     @Column(name="IS_SUPER_ADMIN")
     private Boolean isSuperAdmin;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY,targetEntity=SysDepartment.class)
+    @JoinColumn(name="DEPT_ID", insertable=false,updatable=false)
+    private SysDepartment sysDepartment;
+
+    @Transient
+    private String departmentName;
 
     public SysDeptRole() {
     }
@@ -101,5 +112,21 @@ public class SysDeptRole implements Serializable{
 
     public void setIsSuperAdmin(Boolean isSuperAdmin) {
         this.isSuperAdmin = isSuperAdmin;
+    }
+
+    public SysDepartment getSysDepartment() {
+        return sysDepartment;
+    }
+
+    public void setSysDepartment(SysDepartment sysDepartment) {
+        this.sysDepartment = sysDepartment;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }
