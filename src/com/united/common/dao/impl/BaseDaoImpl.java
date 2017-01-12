@@ -108,13 +108,32 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 		Set<String> keySet = map.keySet();
 		int i = 0;
 		for (String key : keySet) {
-			if(i==0)
+			if(i==0) {
 				hql.append(key).append("=").append(map.get(key));
-			hql.append(" and ").append(key).append("=").append(map.get(key));
+			}else{
+				hql.append(" and ").append(key).append("=").append(map.get(key));
+			}
 			++i;
 		}
 		return (T)getSession().createQuery(hql.toString()).uniqueResult();
 	}
+
+	public List<T> getListEquals(Map<String,Object> map){
+		StringBuffer hql = new StringBuffer(128).append("from ").append(entityClass.getName()).append("  where ");
+		Set<String> keySet = map.keySet();
+		int i = 0;
+		for (String key : keySet) {
+			if(i==0) {
+				hql.append(key).append("=").append(map.get(key));
+			}else{
+				hql.append(" and ").append(key).append("=").append(map.get(key));
+			}
+			++i;
+		}
+		return getSession().createQuery(hql.toString()).list();
+	}
+
+
 	/**
 	 * {@inheritDoc}
 	 */
