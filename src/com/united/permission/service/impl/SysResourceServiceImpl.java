@@ -53,13 +53,16 @@ public class SysResourceServiceImpl implements SysResourceService {
 
     @Override
     public List<SysResource> getListByAccount(Account account) {
-        List<SysResource> list = new ArrayList<SysResource>();
-        Assert.notNull(account);
+        return getListByRoleId(account.getDeptRoleId());
+    }
 
-        if(account.getDeptRoleId()==null)
+    private List<SysResource> getListByRoleId(Long roleId){
+        List<SysResource> list = new ArrayList<SysResource>();
+
+        if(roleId==null)
             return list;
 
-        List<SysRoleRes> sysRoleResList = sysRoleResService.getListByRole(account.getDeptRoleId());
+        List<SysRoleRes> sysRoleResList = sysRoleResService.getListByRole(roleId);
         if(sysRoleResList!=null&&sysRoleResList.size()>0){
             for (SysRoleRes sysRoleRes : sysRoleResList) {
                 list.add(sysRoleRes.getSysResource());
@@ -67,4 +70,32 @@ public class SysResourceServiceImpl implements SysResourceService {
         }
         return list;
     }
+
+    @Override
+    public List<SysResource> getAll() {
+        return sysResourceDao.getAll();
+    }
+
+
+
+    @Override
+    public List<SysResource> listRoleResource(Long roleId) {
+        //select sr.*,srr.oid as flag from sys_resource sr left join (select * from sys_role_res where role_id=2) srr on sr.oid=srr.resource_id
+        //StringBuffer hql = new StringBuffer("from SysResource  sr left join (select * from SysRoleRes where roleId=2)srr on sr.oid=srr.resourceId ");
+        List<SysResource> allList = sysResourceDao.getAll();
+        List<SysRoleRes> roleList = sysRoleResService.getListByRole(roleId);
+        if(allList!=null&&allList.size()>0){
+            for (SysResource sysResource : allList) {
+                if(roleList!=null&&roleList.size()>0){
+                    for (SysRoleRes sysRoleRes : roleList) {
+                        if(sysRoleRes.getResourceId().equals(sysResource.getOid())){
+                            sysResource.setCheckFlag(true);
+                        }
+                    }
+                }
+            }
+        }
+        return allList;
+    }
+
 }

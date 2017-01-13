@@ -13,4 +13,13 @@ public interface SysResourceService {
 
     public List<SysResource> getListByAccount(Account account);
 
+    List<SysResource> getAll();
+
+    /**
+     * 查询角色拥有的资源菜单:查询所有资源,角色拥有的则为选中状态,否则不选中状态
+     * @param roleId
+     * @return
+     */
+    List<SysResource> listRoleResource(Long roleId);
+
 }
