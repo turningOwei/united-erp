@@ -23,11 +23,14 @@ Ext.define('Module.manage.SysRoleManage', {
         margin: '5 5 0 0',
         listeners : {
             rowclick:function( thisGrid, record, tr, rowIndex, e, eOpts ){
-                var resCmp = Util.getCmp('sysrolemange-resourceid');
+                var resCmp = Util.getCmp('sysrolemange-resourceid'),
+                    roleId = record.get('oid');
                 resCmp.setCollapsed(false);
                 var defaultParams = {
-                    roleId : record.get('oid')
+                    roleId : roleId
                 };
+                resCmp.setTitle('资源(菜单)-'+record.get('name'));
+                resCmp.roleId = roleId;
                 resCmp.loadByDefaultParams(defaultParams);
             }
         }
@@ -49,10 +52,27 @@ Ext.define('Module.manage.SysRoleManage', {
         buildTbar : function(){
             this.roleResourceAdd = Ext.id();
             var refrushListeners = {};
-            var accountAddListener = {};
+            var roleResourceAddListener = {
+                click : function ( thisButton, e, eOpts ) {
+                    var thisGrid = this.ownerCt.ownerCt;
+                    var ajaxParams = {
+                        roleId      : thisGrid.roleId,
+                        resourceIds : thisGrid.getSp('oid')
+                    };
+                    ExtUx.Ajax.request({
+                        url    : SysConfig.ctx + '/permission/managesysroleres/saveRoleResource.do',
+                        params : ajaxParams,
+                        //isSuccTip : false,
+                        isFailTip : false,
+                        succFn : function(response, result, opti) {
+                            //Msg.msg('保存成功!');
+                        }
+                    });
+                }
+            };
             return  [
                 {xtype  : 'button',text : '刷新',     listeners : refrushListeners    },
-                {itemId : this.roleResourceAdd,xtype  : 'button',text : '保存',disabled:false, listeners:accountAddListener}
+                {itemId : this.roleResourceAdd,xtype  : 'button',text : '保存',disabled:false, listeners:roleResourceAddListener}
             ];
         },
         listeners : {
