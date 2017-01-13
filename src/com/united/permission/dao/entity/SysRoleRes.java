@@ -13,7 +13,9 @@ import javax.persistence.*;
 @Table(name="SYS_ROLE_RES")
 public class SysRoleRes {
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @SequenceGenerator(name="sequence",sequenceName="SEQ_SYS_ROLE_RES", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+
     @Column(name="OID")
     private Long oid;
 
@@ -25,7 +27,7 @@ public class SysRoleRes {
 
 
     @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,targetEntity=SysResource.class)
-    @JoinColumn(name="OID",updatable=false)//指定一个外键，也可以不指定。//nullable=false,
+    @JoinColumn(name="OID",updatable=false,insertable = false)//指定一个外键，也可以不指定。//nullable=false,
     private SysResource sysResource;
 
     public SysRoleRes() {
