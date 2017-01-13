@@ -10,6 +10,6 @@ Ext.Loader.setConfig({
         App      : SysConfig.jsPath + '/app', // app模块路径
         Sys      : SysConfig.jsPath + '/sys', // 系统模块
         Subject  : SysConfig.jsPath + '/subject',
-        Module   : SysConfig.jsPath + '/module',
+        Module   : SysConfig.jsPath + '/module'
     }
 });
