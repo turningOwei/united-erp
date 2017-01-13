@@ -37,6 +37,9 @@ public class ManageSysRoleResCtrl {
     @RequestMapping("/saveRoleResource.do")
     @ResponseBody
     public ExtJsonForm saveRoleResource(Long roleId,Long[] resourceIds){
+        if(roleId==null){
+            return new ExtJsonForm(true,"角色未点选,无法保存!");
+        }
         sysRoleResService.saveRoleResource(roleId,resourceIds);
         return new ExtJsonForm(true,"保存成功");
     }
