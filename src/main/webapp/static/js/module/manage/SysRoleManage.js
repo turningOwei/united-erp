@@ -43,9 +43,18 @@ Ext.define('Module.manage.SysRoleManage', {
         margin: '5 0 0 5',
         width: 600,
         split: true,
-        collapsed : true, //不展开
+        collapsed : false, //展开资源panel
         collapsible: true,   // make collapsible
         layout: 'fit',
+        buildTbar : function(){
+            this.roleResourceAdd = Ext.id();
+            var refrushListeners = {};
+            var accountAddListener = {};
+            return  [
+                {xtype  : 'button',text : '刷新',     listeners : refrushListeners    },
+                {itemId : this.roleResourceAdd,xtype  : 'button',text : '保存',disabled:false, listeners:accountAddListener}
+            ];
+        },
         listeners : {
             afterrender : function( thisGrid, eOpts ){
                 thisGrid.getStore().on('load',function(thisStore, records, successful, eOpts ){
@@ -58,7 +67,7 @@ Ext.define('Module.manage.SysRoleManage', {
                     for(var i = 0;i < records.length;i++){
                         if(records[i].get('checkFlag')){
                             /**
-                             * 不保留之前的选择,
+                             * 保留之前的选择,
                              * 触发选中事件
                              */
                             sm.select(i,true,false);
