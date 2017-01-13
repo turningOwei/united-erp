@@ -24,16 +24,19 @@ public class SysRoleResServiceImpl implements SysRoleResService {
 
     @Override
     public void saveRoleResource(Long roleId, Long[] resourceIds) {
+        if(resourceIds==null|resourceIds.length==0){
+            sysRoleResDao.deleteByRoleId(roleId);
+        }else{
+            List<SysRoleRes> hasList = sysRoleResDao.getHasList(roleId, resourceIds);
 
-        List<SysRoleRes> hasList = sysRoleResDao.getHasList(roleId, resourceIds);
+            List<SysRoleRes> deleteList = sysRoleResDao.getDeleteList(roleId, resourceIds);
 
-        List<SysRoleRes> deleteList = sysRoleResDao.getDeleteList(roleId, resourceIds);
+            List<Long> addLongList = getAddLongList(hasList,resourceIds);
 
-        List<Long> addLongList = getAddLongList(hasList,resourceIds);
+            sysRoleResDao.delete(deleteList);
+            saveAddResource(roleId,resourceIds,addLongList );
+        }
 
-
-        sysRoleResDao.delete(deleteList);
-        saveAddResource(roleId,resourceIds,addLongList );
     }
 
     private List<SysRoleRes> saveAddResource(Long roleId, Long[] resourceIds,List<Long> addLongList ){
