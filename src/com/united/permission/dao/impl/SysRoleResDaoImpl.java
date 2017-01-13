@@ -30,4 +30,11 @@ public class SysRoleResDaoImpl extends BaseDaoImpl<SysRoleRes, Long> implements 
                 .setParameter(0, roleId)
                 .setParameterList("resourceIds", resourceIds).list();
     }
+
+
+    @Override
+    public void deleteByRoleId(Long roleId) {
+        String hql = "delete SysRoleRes srr where srr.roleId=?";
+        this.getSession().createQuery(hql).setParameter(0,roleId).executeUpdate();
+    }
 }

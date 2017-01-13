@@ -12,4 +12,6 @@ public interface SysRoleResDao extends BaseDao<SysRoleRes,Long>{
     List<SysRoleRes> getDeleteList(Long roleId, Long[] resourceIds);
 
     List<SysRoleRes> getHasList(Long roleId, Long[] resourceIds);
+
+    public void deleteByRoleId(Long roleId);
 }
