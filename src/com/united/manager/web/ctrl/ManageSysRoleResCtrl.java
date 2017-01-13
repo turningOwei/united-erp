@@ -36,8 +36,8 @@ public class ManageSysRoleResCtrl {
 
     @RequestMapping("/saveRoleResource.do")
     @ResponseBody
-    public ExtJsonForm saveRoleResource(Long roleId,Long resourceId){
-
-        return new ExtJsonForm();
+    public ExtJsonForm saveRoleResource(Long roleId,Long[] resourceIds){
+        sysRoleResService.saveRoleResource(roleId,resourceIds);
+        return new ExtJsonForm(true,"保存成功");
     }
 }
