@@ -44,6 +44,12 @@ public class SysResource implements Serializable{
     @Transient
     private List<SysResource> children;
 
+    /**
+     * 用于判断当前角色是否有该资源菜单
+     */
+    @Transient
+    private Boolean checkFlag;
+
     public SysResource(){}
 
     public SysResource(String text, Long parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, String validStatus, Boolean isValid) {
@@ -153,5 +159,13 @@ public class SysResource implements Serializable{
 
     public void setChildren(List<SysResource> children) {
         this.children = children;
+    }
+
+    public Boolean getCheckFlag() {
+        return checkFlag;
+    }
+
+    public void setCheckFlag(Boolean checkFlag) {
+        this.checkFlag = checkFlag;
     }
 }
