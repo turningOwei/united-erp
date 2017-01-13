@@ -12,7 +12,8 @@ import java.util.Date;
 @Table(name="T_ACCOUNT")
 public class Account implements Serializable{
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @SequenceGenerator(name="sequence",sequenceName="SEQ_ACCOUNT", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     @Column(name="OID")
     private Long oid;
 
