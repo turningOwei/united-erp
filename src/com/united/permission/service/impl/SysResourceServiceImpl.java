@@ -41,7 +41,7 @@ public class SysResourceServiceImpl implements SysResourceService {
     private SysResource  fillChildren(List<SysResource> list,SysResource node){
         List<SysResource> children = new ArrayList<>();
         for (SysResource sysResource : list) {
-            if(node.getOid().equals(sysResource.getParentId())){
+            if(sysResource!=null&&node.getOid().equals(sysResource.getParentId())){
                 sysResource = fillChildren(list,sysResource);
                 children.add(sysResource);
             }
