@@ -1,45 +1,49 @@
 package com.united.permission.dao.entity;
 
-/**
- * Created by turningOwei on 2017/1/9.
- */
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.united.corp.dao.entity.SysDepartment;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
- * 权限关联资源表
+ * Created by turningOwei on 2017/1/16.
+ */
+
+/**
+ * 一般角色(非超级)的资源菜单
  */
 @Entity
-@Table(name="SYS_ROLE_RES")
-public class SysRoleRes {
+@Table(name="T_ROLE_RES")
+public class RoleRes implements Serializable{
     @Id
-    @SequenceGenerator(name="sequence",sequenceName="SEQ_SYS_ROLE_RES", allocationSize = 1)
+    @SequenceGenerator(name="sequence",sequenceName="SEQ_T_ROLE_RES", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
 
     @Column(name="OID")
     private Long oid;
+
+    @Column(name="CORP_ID")
+    private Long corpId;
 
     @Column(name="ROLE_ID")
     private Long roleId;
 
     @Column(name="RESOURCE_ID")
     private Long resourceId;
-
+    //删除标志
     @Column(name="IS_VALID")
     private Boolean isValid;
 
-
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity=SysResource.class)
+    @ManyToOne(fetch = FetchType.LAZY,targetEntity=SysResource.class)
     @JoinColumn(name="RESOURCE_ID", insertable=false,updatable=false)
     private SysResource sysResource;
 
-    public SysRoleRes() {
-    }
 
-    public SysRoleRes(Long roleId, Long resourceId, Boolean isValid) {
+    public RoleRes(){}
+    public RoleRes(Long corpId, Long roleId, Long resourceId, Boolean isValid) {
+        this.corpId = corpId;
         this.roleId = roleId;
         this.resourceId = resourceId;
         this.isValid = isValid;
@@ -51,6 +55,14 @@ public class SysRoleRes {
 
     public void setOid(Long oid) {
         this.oid = oid;
+    }
+
+    public Long getCorpId() {
+        return corpId;
+    }
+
+    public void setCorpId(Long corpId) {
+        this.corpId = corpId;
     }
 
     public Long getRoleId() {
@@ -69,19 +81,19 @@ public class SysRoleRes {
         this.resourceId = resourceId;
     }
 
-    public SysResource getSysResource() {
-        return sysResource;
-    }
-
-    public void setSysResource(SysResource sysResource) {
-        this.sysResource = sysResource;
-    }
-
     public Boolean getIsValid() {
         return isValid;
     }
 
     public void setIsValid(Boolean isValid) {
         this.isValid = isValid;
+    }
+
+    public SysResource getSysResource() {
+        return sysResource;
+    }
+
+    public void setSysResource(SysResource sysResource) {
+        this.sysResource = sysResource;
     }
 }

@@ -52,4 +52,17 @@ public class SysDeptRoleServiceImpl implements SysDeptRoleService {
         }
         return list;
     }
+
+    @Override
+    public List<SysDeptRole> listNormalRoleByDept(Long deptId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("deptId",deptId);
+        map.put("isSuperAdmin",false);
+        return sysDeptRoleDao.getListEquals(map);
+    }
+
+    @Override
+    public List<SysDeptRole> listAll() {
+        return sysDeptRoleDao.getAll();
+    }
 }

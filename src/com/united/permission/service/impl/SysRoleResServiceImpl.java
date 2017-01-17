@@ -19,34 +19,37 @@ public class SysRoleResServiceImpl implements SysRoleResService {
     protected SysRoleResDao sysRoleResDao;
     @Override
     public List<SysRoleRes> getListByRole(Long roleId) {
-        return sysRoleResDao.getList("roleId",roleId);
+        return sysRoleResDao.getListByRole(roleId);
     }
 
     @Override
     public void saveRoleResource(Long roleId, Long[] resourceIds) {
-        if(resourceIds==null|resourceIds.length==0){
+        if(resourceIds==null||resourceIds.length==0){
             sysRoleResDao.deleteByRoleId(roleId);
         }else{
             List<SysRoleRes> hasList = sysRoleResDao.getHasList(roleId, resourceIds);
 
-            List<SysRoleRes> deleteList = sysRoleResDao.getDeleteList(roleId, resourceIds);
+            //List<SysRoleRes> deleteList = sysRoleResDao.getDeleteList(roleId, resourceIds);
 
             List<Long> addLongList = getAddLongList(hasList,resourceIds);
 
-            sysRoleResDao.delete(deleteList);
-            saveAddResource(roleId,resourceIds,addLongList );
+            //sysRoleResDao.delete(deleteList);
+            sysRoleResDao.delete(roleId, resourceIds);
+            saveAddResource(roleId,addLongList );
         }
 
     }
 
-    private List<SysRoleRes> saveAddResource(Long roleId, Long[] resourceIds,List<Long> addLongList ){
+    private List<SysRoleRes> saveAddResource(Long roleId, List<Long> addLongList ){
         List<SysRoleRes> addList = new ArrayList<SysRoleRes>();
         if(addLongList!=null&&addLongList.size()>0){
             for (Long resourceId : addLongList) {
                 if(resourceId!=null){
-                    SysRoleRes entity = new SysRoleRes();
+                    SysRoleRes entity = sysRoleResDao.getEntity(roleId, resourceId);
+                    entity = entity ==null? new SysRoleRes():entity;
                     entity.setRoleId(roleId);
                     entity.setResourceId(resourceId);
+                    entity.setIsValid(true);
                     sysRoleResDao.save(entity);
                     addList.add(entity);
                 }

@@ -13,4 +13,8 @@ public interface SysDeptRoleService {
     public SysDeptRole getDeptSuperAdmin(Long deptId);
 
     List<SysDeptRole> getAll();
+
+    List<SysDeptRole> listNormalRoleByDept(Long deptId);
+
+    List<SysDeptRole> listAll();
 }
