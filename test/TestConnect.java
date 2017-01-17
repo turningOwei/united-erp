@@ -17,13 +17,12 @@ import javax.annotation.Resource;
 public class TestConnect {
     private static Logger log = org.slf4j.LoggerFactory.getLogger(TestConnect.class);
     @Resource
-    //private AccountMapper accountMapper;
     AccountDao accountDao;
     @Resource
     private AccountService accountService;
     @Test
     public void test(){
-        Account entity = accountService.queryAccountById(1l);
+        Account entity = accountService.getByOId(1l);
 
         System.out.println(entity.getName());
     }

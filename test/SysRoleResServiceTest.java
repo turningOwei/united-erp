@@ -1,5 +1,5 @@
-import com.united.permission.dao.entity.SysResource;
-import com.united.permission.service.SysResourceService;
+import com.united.permission.dao.entity.SysRoleRes;
+import com.united.permission.service.SysRoleResService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +13,17 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:config/spring/spring.xml"})
-public class SysResourceTest {
+public class SysRoleResServiceTest {
     @Autowired
-    private SysResourceService sysResourceService;
+    private SysRoleResService sysRoleResService;
 
     @Test
     public void test(){
-        /*SysResource res = sysResourceService.getRootNode(null);
-        System.out.println(res.getText());*/
+       /* List<SysRoleRes> list = sysRoleResService.getListByRole(1l);
 
-        List<SysResource> list = sysResourceService.listRoleResource(1l);
-        System.out.println(list.size());
+        System.out.println(list.size());*/
+        Long[] ids =new Long[1];
+        ids[0] =1l;
+        sysRoleResService.saveRoleResource(1l,ids);
     }
 }

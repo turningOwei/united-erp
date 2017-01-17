@@ -1,35 +1,35 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.united.account.dao.AccountMapper;
 import com.united.account.dao.entity.Account;
-import com.united.permission.dao.entity.SysResource;
-import com.united.permission.service.SysResourceService;
+import com.united.account.service.AccountService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
- * Created by turningOwei on 2016/12/18.
+ * Created by turningOwei on 2017/1/9.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:config/spring/spring.xml"})
 public class AccountTest {
-    //AccountMapper
-
-    private static Logger log = org.slf4j.LoggerFactory.getLogger(AccountTest.class);
-    @Resource
-    private AccountMapper accountMapper;
+    @Autowired
+    private AccountService accountService;
     @Test
     public void test(){
-        //List<Account> list = accountMapper.selectAllByCorp(1);
-        Account list = accountMapper.selectByPrimaryKey(1l);
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String str = gson.toJson(list);
-        log.info(str);
+        Account account = accountService.getByOId(10l);
+        //account.getAccountRole().getOid();
+       /* System.out.println(account.getSysDeptRole().getName());
+        System.out.println(account.getName());*/
+       //List<Account> list = accountService.listByPage(account);
+       //Integer totalCount =  accountService.listByPageCount(account);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY).serializeNulls()
+                .create();
+        //System.out.println(gson.toJson(list));
+        Boolean valid = accountService.validDeptSuperAdminExist(account);
+        System.out.println(valid);
     }
 }
