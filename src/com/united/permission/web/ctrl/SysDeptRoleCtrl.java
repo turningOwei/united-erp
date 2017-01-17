@@ -19,11 +19,20 @@ import java.util.List;
 public class SysDeptRoleCtrl {
     @Autowired
     private SysDeptRoleService sysDeptRoleService;
-    @RequestMapping("/listNotGeneralManager.do")
+
+    @RequestMapping("/listNotGeneralManagerByDept.do")
     @ResponseBody
-    public ExtGrid listNotGeneralManager(Account account){
+    public ExtGrid listNotGeneralManagerByDept(Account account){
         List<SysDeptRole> list = sysDeptRoleService.listNotGeneralMager(account.getDeptId());
         return new ExtGrid(list,0,true);
     }
+
+    @RequestMapping("/listAll.do")
+    @ResponseBody
+    public ExtGrid listAll(){
+        List<SysDeptRole> list = sysDeptRoleService.listAll();
+        return new ExtGrid(list,0,true);
+    }
+
 
 }
