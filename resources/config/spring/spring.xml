@@ -7,7 +7,7 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd"
 	default-lazy-init="true">
 	<!-- 对所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
-	<context:component-scan base-package="com" />
+	<context:component-scan base-package="com.united" />
 
 	<!-- 初始化处理bean -->
 	<!-- redis -->
@@ -17,7 +17,7 @@
 	<!-- dao -->
 	<import resource="classpath:/config/spring/spring-biz-dao.xml" />
 	<!-- mongodb -->
-	<import resource="classpath:/config/dbsource/mongodb-source.xml" />
+	<!--<import resource="classpath:/config/dbsource/mongodb-source.xml" />-->
 
 	<import resource="classpath:/config/spring/spring-biz-task.xml" />
 

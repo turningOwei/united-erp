@@ -85,7 +85,19 @@ public interface BaseDao<T,PK extends Serializable> {
      */
     public List<T> getList(String propertyName, Object value);
 
+    /**
+     * 自定义查询条件
+     * @param hqlCondition
+     * @return
+     */
     public List<T> queryByHqlCondition(String hqlCondition);
+
+    /**
+     * 自定义hql 比较复杂的hql
+     * @param hql
+     * @return
+     */
+    public List<T> getListByHQL(String  hql);
     /**
      * 查询所有
      * @return 实体对象集合

@@ -19,4 +19,7 @@ public interface AccountService {
     Account getByOId(Long oid);
 
     Account saveOrUpdateAccount(Account account);
+
+
+    boolean validDeptSuperAdminExist(Account account);
 }

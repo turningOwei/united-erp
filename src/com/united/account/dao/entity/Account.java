@@ -1,6 +1,7 @@
 package com.united.account.dao.entity;
 
 
+import com.dao.entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.united.corp.dao.entity.SysDepartment;
 import com.united.permission.dao.entity.SysDeptRole;
@@ -10,12 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Table(name="T_ACCOUNT")
-public class Account implements Serializable{
-    @Id
-    @SequenceGenerator(name="sequence",sequenceName="SEQ_ACCOUNT", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    @Column(name="OID")
-    private Long oid;
+public class Account extends BaseEntity {
+
 
     @Column(name="CORP_ID")
     private Long corpId;
@@ -78,14 +75,6 @@ public class Account implements Serializable{
 
     public Account() {
         super();
-    }
-
-    public Long getOid() {
-        return oid;
-    }
-
-    public void setOid(Long oid) {
-        this.oid = oid;
     }
 
     public Long getCorpId() {

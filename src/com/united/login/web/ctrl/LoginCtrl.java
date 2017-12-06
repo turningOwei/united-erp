@@ -42,7 +42,7 @@ public class LoginCtrl {
 
 
     @RequestMapping("/index.do")
-    public ModelAndView index(Account account,ModelMap modelMap,ServletWebRequest request){
+    public ModelAndView index(Account account,ModelMap modelMap,ServletWebRequest request,HttpSession httpSession){
         ModelAndView mv = new ModelAndView("view/index");
 
 
@@ -52,7 +52,8 @@ public class LoginCtrl {
         Company corp = companyService.getByCorpCode(corpCode);
         modelMap.put("corp",corp);
         modelMap.put("corpId",corp.getOid());
-
+        httpSession.setAttribute("corp",corp);
+        httpSession.setAttribute("corpId",corp.getOid());
 
 
         //默认设置总经理登录

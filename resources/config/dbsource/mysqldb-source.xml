@@ -2,53 +2,131 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
     <!--<bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:config/jdbc.properties" />
     </bean>-->
-    <context:property-placeholder location="classpath:config/jdbc.properties"/>
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
+    <context:property-placeholder location="classpath:config/mysqljdbc.properties"/>
+
+    <!-- 配置数据源 -->
+    <!--<bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
-       <!-- <property name="url" value="jdbc:mysql://192.168.10.36:3306/keliu?useUnicode=true&amp;characterEncoding=UTF-8" />-->
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
-        <!-- 初始化连接大小 -->
-        <property name="initialSize" value="0"/>
-        <!-- 连接池最大数量 -->
-        <property name="maxActive" value="20"></property>
-        <!-- 连接池最大空闲 -->
-        <property name="maxIdle" value="20"></property>
-        <!-- 连接池最小空闲 -->
-        <property name="minIdle" value="1"></property>
-        <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="60000"></property>
+    </bean>-->
+
+    <!-- 阿里 druid 数据库连接池 -->
+    <bean id = "dataSource" class = "com.alibaba.druid.pool.DruidDataSource" destroy-method = "close" >
+        <!-- 数据库基本信息配置 -->
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="filters" value = "${filters}" />
+        <!-- 最大并发连接数 -->
+        <property name = "maxActive" value = "${maxActive}" />
+        <!-- 初始化连接数量 -->
+        <property name = "initialSize" value = "${initialSize}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name = "maxWait" value = "${maxWait}" />
+        <!-- 最小空闲连接数 -->
+        <property name = "minIdle" value = "${minIdle}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name = "timeBetweenEvictionRunsMillis" value ="${timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name = "minEvictableIdleTimeMillis" value ="${minEvictableIdleTimeMillis}" />
+        <property name = "validationQuery" value = "${validationQuery}" />
+        <property name = "testWhileIdle" value = "${testWhileIdle}" />
+        <property name = "testOnBorrow" value = "${testOnBorrow}" />
+        <property name = "testOnReturn" value = "${testOnReturn}" />
+
+        <property name = "maxOpenPreparedStatements" value ="${maxOpenPreparedStatements}" />
+        <!-- 打开 removeAbandoned 功能 -->
+        <property name = "removeAbandoned" value = "${removeAbandoned}" />
+        <!-- 1800 秒，也就是 30 分钟 -->
+        <property name = "removeAbandonedTimeout" value ="${removeAbandonedTimeout}" />
+        <!-- 关闭 abanded 连接时输出错误日志 -->
+        <property name = "logAbandoned" value = "${logAbandoned}" />
+
     </bean>
 
-    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <!--<property name="configLocation" value="classpath:config/mybatis/history/History.xml" />-->
-        <!--<property name="configLocation" value="classpath:config/mybatis/pub-configuration.xml" />-->
-        <property name="mapperLocations" value="classpath:config/mybatis/mapper/united/*/*.xml"/>
+
+
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" destroy-method="destroy">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="packagesToScan">
+            <list><value>com.united.*.dao.entity</value></list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hiberante.format_sql">true</prop>
+            </props>
+        </property>
     </bean>
 
-    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.*.*.dao" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-       <!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"/>-->
-    </bean>
 
-    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
-    <!--<tx:jta-transaction-manager />-->
+    <!-- 事务管理器 -->
     <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
 
+    <!-- 配置事务传播特性 -->
+    <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+            <tx:method name="del*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+            <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+            <tx:method name="do*" propagation="REQUIRED" rollback-for="java.lang.Exception" />
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="load*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="query*" read-only="true" />
+            <tx:method name="list*" read-only="true" />
+            <tx:method name="search*" read-only="true" />
+            <tx:method name="*" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
 
+
+
+    <!-- 配置druid监控spring-->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+
+    <bean id="druidstatpointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.united.*</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 使用AspectJ方式配置AOP -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <!-- <aop:config/>
+     <aop:config  proxy-target-class="true">
+         <aop:advisor pointcut-ref="druidstatpointcut" advice-ref="druid-stat-interceptor" />&lt;!&ndash; druid 监控spring &ndash;&gt;
+         <aop:advisor pointcut="execution(* com.united.*.serivce.impl.*(..))" advice-ref="transactionAdvice" /> &lt;!&ndash; 配置哪些类的哪些方法参与事务 &ndash;&gt;
+     </aop:config>-->
+
+    <!-- 配置事务拦截器拦截哪些类的哪些方法,一般设置成拦截Service -->
+    <!--第一个*代表所有的返回值类型
+    第二个*代表所有的类
+    第三个*代表类所有方法 最后一个..代表所有的参数。-->
+
+    <aop:config>
+        <aop:pointcut expression="execution(* com.united.*.service.*.*(..))" id="allDaoMethod" />
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="allDaoMethod" />
+    </aop:config>
 </beans>

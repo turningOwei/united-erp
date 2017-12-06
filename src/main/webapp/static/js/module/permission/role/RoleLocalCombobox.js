@@ -4,7 +4,7 @@ Ext.define('Module.permission.role.RoleLocalCombobox', {
     fields	   	  : ['oid', 'name'],
     displayField  : 'name',
     valueField	  : 'oid',
-    dataUrl :  SysConfig.ctx + '/permission/deptrole/listNotGeneralManager.do'
+    dataUrl :  SysConfig.ctx + '/permission/deptrole/listNotGeneralManagerByDept.do'
 });
 
 

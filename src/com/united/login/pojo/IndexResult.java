@@ -1,7 +1,5 @@
 package com.united.login.pojo;
 
-import com.united.permission.dao.entity.Resource;
-import com.united.permission.dao.entity.SysResource;
 import com.united.permission.dao.entity.SysUser;
 
 /**

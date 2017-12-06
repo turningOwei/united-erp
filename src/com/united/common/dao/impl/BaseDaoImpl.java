@@ -134,6 +134,9 @@ public class BaseDaoImpl<T, PK extends Serializable> implements BaseDao<T, PK> {
 	}
 
 
+	public List<T> getListByHQL(String  hql){
+		return getSession().createQuery(hql).list();
+	}
 	/**
 	 * {@inheritDoc}
 	 */

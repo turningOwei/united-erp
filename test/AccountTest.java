@@ -19,7 +19,7 @@ public class AccountTest {
     private AccountService accountService;
     @Test
     public void test(){
-        Account account = accountService.getByOId(10l);
+        Account account = accountService.getByOId(1l);
         //account.getAccountRole().getOid();
        /* System.out.println(account.getSysDeptRole().getName());
         System.out.println(account.getName());*/
@@ -31,5 +31,9 @@ public class AccountTest {
         //System.out.println(gson.toJson(list));
         Boolean valid = accountService.validDeptSuperAdminExist(account);
         System.out.println(valid);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("test");
     }
 }

@@ -80,7 +80,9 @@ Ext.define('Module.permission.RoleManage', {
         },
         listeners : {
             afterrender : function( thisGrid, eOpts ){
+
                 thisGrid.getStore().on('load',function(thisStore, records, successful, eOpts ){
+                    Util.getCmp(thisGrid.roleResourceAdd).setHidden(thisGrid.isSuperAdmin);
                     var sm  = thisGrid.getSelectionModel();
                     /**
                      * 选中重置
@@ -88,7 +90,7 @@ Ext.define('Module.permission.RoleManage', {
                     sm.deselectAll();
 
                     for(var i = 0;i < records.length;i++){
-                        if(records[i].get('checkFlag')){
+                        if(records[i].get('checkFlag')==true){
                             /**
                              * 保留之前的选择,
                              * 触发选中事件
@@ -96,8 +98,9 @@ Ext.define('Module.permission.RoleManage', {
                             sm.select(i,true,false);
                         }
                     }
-                    sm.setLocked(thisGrid.isSuperAdmin==true);
                 },this);
+
+
             }
         }
     }]
