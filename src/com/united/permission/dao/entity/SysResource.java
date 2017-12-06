@@ -1,33 +1,58 @@
 package com.united.permission.dao.entity;
 
-import org.springframework.data.annotation.Transient;
-
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+@Entity
+@Table(name="SYS_RESOURCE")
+public class SysResource implements Serializable{
+    @Id
+    @GeneratedValue(strategy= GenerationType.TABLE)
+    @Column(name="OID")
+    private Long oid;
 
-public class SysResource {
-    private Integer dbId;
-
+    @Column(name="TEXT")
     private String text;
 
-    private Integer parentId;
+    @Column(name="PARENT_ID")
+    private Long parentId;
 
+    @Column(name="NAME")
     private String name;
 
+    @Column(name="MENU_URL")
     private String menuUrl;
 
+    @Column(name="MENU_TYPE")
     private String menuType;
 
+    @Column(name="ICON_CLS")
     private String iconCls;
 
+    @Column(name="IS_LEAF")
     private Integer isLeaf;
 
-    private String jsPath;
+    @Column(name="JS_CLASS_NAME")
+    private String jsClassName;
+
+    @Column(name="VALID_STATUS")
+    private String validStatus;
+
+    @Column(name="IS_VALID")
+    private Boolean isValid;
 
     @Transient
     private List<SysResource> children;
 
-    public SysResource(Integer dbId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsPath) {
-        this.dbId = dbId;
+    /**
+     * 用于判断当前角色是否有该资源菜单
+     */
+    @Transient
+    private Boolean checkFlag;
+
+    public SysResource(){}
+
+    public SysResource(String text, Long parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, String validStatus, Boolean isValid) {
         this.text = text;
         this.parentId = parentId;
         this.name = name;
@@ -35,19 +60,17 @@ public class SysResource {
         this.menuType = menuType;
         this.iconCls = iconCls;
         this.isLeaf = isLeaf;
-        this.jsPath = jsPath;
+        this.jsClassName = jsClassName;
+        this.validStatus = validStatus;
+        this.isValid = isValid;
     }
 
-    public SysResource() {
-        super();
+    public Long getOid() {
+        return oid;
     }
 
-    public Integer getDbId() {
-        return dbId;
-    }
-
-    public void setDbId(Integer dbId) {
-        this.dbId = dbId;
+    public void setOid(Long oid) {
+        this.oid = oid;
     }
 
     public String getText() {
@@ -55,14 +78,14 @@ public class SysResource {
     }
 
     public void setText(String text) {
-        this.text = text == null ? null : text.trim();
+        this.text = text;
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -71,7 +94,7 @@ public class SysResource {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getMenuUrl() {
@@ -79,7 +102,7 @@ public class SysResource {
     }
 
     public void setMenuUrl(String menuUrl) {
-        this.menuUrl = menuUrl == null ? null : menuUrl.trim();
+        this.menuUrl = menuUrl;
     }
 
     public String getMenuType() {
@@ -87,7 +110,7 @@ public class SysResource {
     }
 
     public void setMenuType(String menuType) {
-        this.menuType = menuType == null ? null : menuType.trim();
+        this.menuType = menuType;
     }
 
     public String getIconCls() {
@@ -95,7 +118,7 @@ public class SysResource {
     }
 
     public void setIconCls(String iconCls) {
-        this.iconCls = iconCls == null ? null : iconCls.trim();
+        this.iconCls = iconCls;
     }
 
     public Integer getIsLeaf() {
@@ -106,12 +129,28 @@ public class SysResource {
         this.isLeaf = isLeaf;
     }
 
-    public String getJsPath() {
-        return jsPath;
+    public String getJsClassName() {
+        return jsClassName;
     }
 
-    public void setJsPath(String jsPath) {
-        this.jsPath = jsPath == null ? null : jsPath.trim();
+    public void setJsClassName(String jsClassName) {
+        this.jsClassName = jsClassName;
+    }
+
+    public String getValidStatus() {
+        return validStatus;
+    }
+
+    public void setValidStatus(String validStatus) {
+        this.validStatus = validStatus;
+    }
+
+    public Boolean getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Boolean isValid) {
+        this.isValid = isValid;
     }
 
     public List<SysResource> getChildren() {
@@ -120,5 +159,13 @@ public class SysResource {
 
     public void setChildren(List<SysResource> children) {
         this.children = children;
+    }
+
+    public Boolean getCheckFlag() {
+        return checkFlag;
+    }
+
+    public void setCheckFlag(Boolean checkFlag) {
+        this.checkFlag = checkFlag;
     }
 }

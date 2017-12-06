@@ -1,11 +1,11 @@
 package com.united.permission.dao.entity;
 
 public class SysRole {
-    private Integer id;
+    private Long id;
 
     private String roleName;
 
-    public SysRole(Integer id, String roleName) {
+    public SysRole(Long id, String roleName) {
         this.id = id;
         this.roleName = roleName;
     }
@@ -14,11 +14,11 @@ public class SysRole {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

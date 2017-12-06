@@ -9,6 +9,7 @@ Ext.Loader.setConfig({
         ExtUx    : SysConfig.jsPath + '/extux', // 系统扩展包
         App      : SysConfig.jsPath + '/app', // app模块路径
         Sys      : SysConfig.jsPath + '/sys', // 系统模块
-        Subject  : SysConfig.jsPath + '/subject'
+        Subject  : SysConfig.jsPath + '/subject',
+        Module   : SysConfig.jsPath + '/module'
     }
 });

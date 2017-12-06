@@ -15,24 +15,19 @@ Ext.define('ExtUx.grid.CusGrid', {
 				columns  	= this.buildColumns(),
 				tbar 	 	= this.buildTbar(),
 				dockedItems = this.buildDockedItems();
-				
-			Ext.applyIf(this, {
+			//使用applyIf 不能加载tbar
+			Ext.apply(this, {
 				store       : store,
-				tbar     	: tbar,
+				tbar		: tbar,
 				dockedItems : dockedItems,
 				columns  	: [{xtype: 'rownumberer'}].concat(columns)
 			});
-			
+
 			if (this.isQueryPage == true) {
 				/**
 			 	 * 初始化分页工具条需要store
 			 	 */
-				var bbar        = this.buildBbar();
-			
-				Ext.applyIf(this, {
-					bbar        : bbar
-				});
-						
+				this.bbar = this.buildBbar();
 			}
 			
 			this.on('destroy', this.onCusGridDestoryFn);

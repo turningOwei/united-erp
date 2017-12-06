@@ -1,9 +1,11 @@
 package com.united.permission.dao.entity;
 
+import java.util.List;
+
 public class Resource extends ResourceKey {
     private String text;
 
-    private Integer parentId;
+    private Long parentId;
 
     private String name;
 
@@ -15,13 +17,17 @@ public class Resource extends ResourceKey {
 
     private Integer isLeaf;
 
-    private String jsPath;
+    private String jsClassName;
 
     private Integer validStatus;
 
-    private String roleKey;
+    private String moduleKeys;
 
-    public Resource(Integer dbId, Integer corpId, String text, Integer parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsPath, Integer validStatus, String roleKey) {
+    private List<Resource> children;
+
+
+
+    public Resource(Long dbId, Long corpId, String text, Long parentId, String name, String menuUrl, String menuType, String iconCls, Integer isLeaf, String jsClassName, Integer validStatus, String moduleKeys) {
         super(dbId, corpId);
         this.text = text;
         this.parentId = parentId;
@@ -30,9 +36,9 @@ public class Resource extends ResourceKey {
         this.menuType = menuType;
         this.iconCls = iconCls;
         this.isLeaf = isLeaf;
-        this.jsPath = jsPath;
+        this.jsClassName = jsClassName;
         this.validStatus = validStatus;
-        this.roleKey = roleKey;
+        this.moduleKeys = moduleKeys;
     }
 
     public Resource() {
@@ -47,11 +53,11 @@ public class Resource extends ResourceKey {
         this.text = text == null ? null : text.trim();
     }
 
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -95,12 +101,12 @@ public class Resource extends ResourceKey {
         this.isLeaf = isLeaf;
     }
 
-    public String getJsPath() {
-        return jsPath;
+    public String getJsClassName() {
+        return jsClassName;
     }
 
-    public void setJsPath(String jsPath) {
-        this.jsPath = jsPath == null ? null : jsPath.trim();
+    public void setJsClassName(String jsClassName) {
+        this.jsClassName = jsClassName == null ? null : jsClassName.trim();
     }
 
     public Integer getValidStatus() {
@@ -111,11 +117,19 @@ public class Resource extends ResourceKey {
         this.validStatus = validStatus;
     }
 
-    public String getRoleKey() {
-        return roleKey;
+    public String getModuleKeys() {
+        return moduleKeys;
     }
 
-    public void setRoleKey(String roleKey) {
-        this.roleKey = roleKey == null ? null : roleKey.trim();
+    public void setModuleKeys(String moduleKeys) {
+        this.moduleKeys = moduleKeys;
+    }
+
+    public List<Resource> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Resource> children) {
+        this.children = children;
     }
 }

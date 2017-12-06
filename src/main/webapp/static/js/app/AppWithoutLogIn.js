@@ -30,14 +30,14 @@ App = function() {
                     }
                 });
             };
-            Msg.ynMsg('ÄãÈ·ÈÏÒª×¢Ïú¸ÃÓÃ»§Âğ?', ysFn);
+            Msg.ynMsg('ä½ ç¡®è®¤è¦æ³¨é”€è¯¥ç”¨æˆ·å—?', ysFn);
         },
         login	: function() {
-            App.createWin('ÓÃ»§µÇÂ½');
+            App.createWin('ç”¨æˆ·ç™»é™†');
             win.show();
         },
         reLogin : function() {
-            App.createWin('<font color="red">µ±Ç°ÓÃ»§Ê§Ğ§, ÇëÖØĞÂµÇÂ½...</font>');
+            App.createWin('<font color="red">å½“å‰ç”¨æˆ·å¤±æ•ˆ, è¯·é‡æ–°ç™»é™†...</font>');
             if (!win.isVisible()) {
                 win.getForm().reset();
                 win.show();

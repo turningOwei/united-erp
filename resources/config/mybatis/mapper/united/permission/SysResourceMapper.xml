@@ -11,11 +11,11 @@
       <arg column="menu_type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="icon_cls" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="is_leaf" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="js_path" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="js_class_name" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    db_id, text, parent_id, name, menu_url, menu_type, icon_cls, is_leaf, js_path
+    db_id, text, parent_id, name, menu_url, menu_type, icon_cls, is_leaf, js_class_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,11 +30,11 @@
   <insert id="insert" parameterType="com.united.permission.dao.entity.SysResource">
     insert into sys_resource (db_id, text, parent_id, 
       name, menu_url, menu_type, 
-      icon_cls, is_leaf, js_path
+      icon_cls, is_leaf, js_class_name
       )
     values (#{dbId,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR}, 
-      #{iconCls,jdbcType=VARCHAR}, #{isLeaf,jdbcType=INTEGER}, #{jsPath,jdbcType=VARCHAR}
+      #{iconCls,jdbcType=VARCHAR}, #{isLeaf,jdbcType=INTEGER}, #{jsClassName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.united.permission.dao.entity.SysResource">
@@ -64,8 +64,8 @@
       <if test="isLeaf != null">
         is_leaf,
       </if>
-      <if test="jsPath != null">
-        js_path,
+      <if test="jsClassName != null">
+        js_class_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -93,8 +93,8 @@
       <if test="isLeaf != null">
         #{isLeaf,jdbcType=INTEGER},
       </if>
-      <if test="jsPath != null">
-        #{jsPath,jdbcType=VARCHAR},
+      <if test="jsClassName != null">
+        #{jsClassName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -122,8 +122,8 @@
       <if test="isLeaf != null">
         is_leaf = #{isLeaf,jdbcType=INTEGER},
       </if>
-      <if test="jsPath != null">
-        js_path = #{jsPath,jdbcType=VARCHAR},
+      <if test="jsClassName != null">
+        js_class_name = #{jsClassName,jdbcType=VARCHAR},
       </if>
     </set>
     where db_id = #{dbId,jdbcType=INTEGER}
@@ -137,7 +137,7 @@
       menu_type = #{menuType,jdbcType=VARCHAR},
       icon_cls = #{iconCls,jdbcType=VARCHAR},
       is_leaf = #{isLeaf,jdbcType=INTEGER},
-      js_path = #{jsPath,jdbcType=VARCHAR}
+      js_class_name = #{jsClassName,jdbcType=VARCHAR}
     where db_id = #{dbId,jdbcType=INTEGER}
   </update>
 

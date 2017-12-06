@@ -1,11 +1,11 @@
 package com.united.permission.dao.entity;
 
 public class ResourceKey {
-    private Integer dbId;
+    private Long dbId;
 
-    private Integer corpId;
+    private Long corpId;
 
-    public ResourceKey(Integer dbId, Integer corpId) {
+    public ResourceKey(Long dbId, Long corpId) {
         this.dbId = dbId;
         this.corpId = corpId;
     }
@@ -14,19 +14,19 @@ public class ResourceKey {
         super();
     }
 
-    public Integer getDbId() {
+    public Long getDbId() {
         return dbId;
     }
 
-    public void setDbId(Integer dbId) {
+    public void setDbId(Long dbId) {
         this.dbId = dbId;
     }
 
-    public Integer getCorpId() {
+    public Long getCorpId() {
         return corpId;
     }
 
-    public void setCorpId(Integer corpId) {
+    public void setCorpId(Long corpId) {
         this.corpId = corpId;
     }
 }
