@@ -3,7 +3,6 @@ package com.united.designer.web.ctrl;
 import com.global.ExtGrid;
 import com.united.designer.dao.entity.SysDesignerItem;
 import com.united.designer.service.SysDesignerItemService;
-import com.united.permission.dao.entity.SysDeptRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +14,8 @@ import java.util.List;
  * Created by 002465 on 2017/12/7.
  */
 @Controller
-@RequestMapping("/designer/systempate")
-public class DesignerSysTemplateCtrl {
+@RequestMapping("/designer/sysitem")
+public class SysDesignerItemCtrl {
     @Autowired
     private SysDesignerItemService sysDesignerItemService;
 

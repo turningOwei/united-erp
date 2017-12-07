@@ -163,6 +163,20 @@ Ext.define('ExtUx.grid.CusGrid', {
 			Ext.Array.each(sels, iterFn, this);
 			return arr.length == 1 ? arr[0] : arr;
 		},
+	/***/
+	getMidifiedData             : function(){
+
+		var arr = [],
+            sels  = this.getStore().getModifiedRecords(),
+			iterFn= function (o) {
+				arr.push(o.getData());
+            };
+        /*for(var i = 0;i < sels.length;i++){
+            arr.push(sels[i].getData());
+		}*/
+        Ext.Array.each(sels, iterFn, this);
+		return arr;
+	},
 		onCusGridDestoryFn : function (component, eOpts) {
 			component.fields = null;
 		}

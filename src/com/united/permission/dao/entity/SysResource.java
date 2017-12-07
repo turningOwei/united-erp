@@ -1,44 +1,47 @@
 package com.united.permission.dao.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 @Entity
 @Table(name="SYS_RESOURCE")
+@Data
 public class SysResource implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
-    @Column(name="OID")
+    @Column(name="oid")
     private Long oid;
 
-    @Column(name="TEXT")
+    @Column(name="text")
     private String text;
 
-    @Column(name="PARENT_ID")
+    @Column(name="parent_id")
     private Long parentId;
 
-    @Column(name="NAME")
+    @Column(name="name")
     private String name;
 
-    @Column(name="MENU_URL")
+    @Column(name="menu_url")
     private String menuUrl;
 
-    @Column(name="MENU_TYPE")
+    @Column(name="menu_type")
     private String menuType;
 
-    @Column(name="ICON_CLS")
+    @Column(name="icon_cls")
     private String iconCls;
 
-    @Column(name="IS_LEAF")
+    @Column(name="is_leaf")
     private Integer isLeaf;
 
-    @Column(name="JS_CLASS_NAME")
+    @Column(name="js_class_name")
     private String jsClassName;
 
-    @Column(name="VALID_STATUS")
+    @Column(name="valid_status")
     private String validStatus;
 
-    @Column(name="IS_VALID")
+    @Column(name="is_valid")
     private Boolean isValid;
 
     @Transient
@@ -65,107 +68,5 @@ public class SysResource implements Serializable{
         this.isValid = isValid;
     }
 
-    public Long getOid() {
-        return oid;
-    }
 
-    public void setOid(Long oid) {
-        this.oid = oid;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMenuUrl() {
-        return menuUrl;
-    }
-
-    public void setMenuUrl(String menuUrl) {
-        this.menuUrl = menuUrl;
-    }
-
-    public String getMenuType() {
-        return menuType;
-    }
-
-    public void setMenuType(String menuType) {
-        this.menuType = menuType;
-    }
-
-    public String getIconCls() {
-        return iconCls;
-    }
-
-    public void setIconCls(String iconCls) {
-        this.iconCls = iconCls;
-    }
-
-    public Integer getIsLeaf() {
-        return isLeaf;
-    }
-
-    public void setIsLeaf(Integer isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-
-    public String getJsClassName() {
-        return jsClassName;
-    }
-
-    public void setJsClassName(String jsClassName) {
-        this.jsClassName = jsClassName;
-    }
-
-    public String getValidStatus() {
-        return validStatus;
-    }
-
-    public void setValidStatus(String validStatus) {
-        this.validStatus = validStatus;
-    }
-
-    public Boolean getIsValid() {
-        return isValid;
-    }
-
-    public void setIsValid(Boolean isValid) {
-        this.isValid = isValid;
-    }
-
-    public List<SysResource> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<SysResource> children) {
-        this.children = children;
-    }
-
-    public Boolean getCheckFlag() {
-        return checkFlag;
-    }
-
-    public void setCheckFlag(Boolean checkFlag) {
-        this.checkFlag = checkFlag;
-    }
 }
