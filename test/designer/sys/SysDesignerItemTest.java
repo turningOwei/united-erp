@@ -34,6 +34,7 @@ public class SysDesignerItemTest {
         entity.setItemUnit("test12");
         entity.setItemUnitPrice("200");
         entity.setItemTypeCode(111l);
+
         sysDesignerItemService.saveOrUpdate(entity);
     }
 

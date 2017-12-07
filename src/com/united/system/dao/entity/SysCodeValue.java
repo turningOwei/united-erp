@@ -30,7 +30,6 @@ public class SysCodeValue extends BaseEntity{
     @Column(name = "code_type_id")
     private Long codeTypeId;
 
-
     public static SysCodeValue createBugetTempalte(){
         SysCodeValue entity = new SysCodeValue();
         entity.setCodeTypeId(1L);

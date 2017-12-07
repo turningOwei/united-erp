@@ -3,11 +3,9 @@ package com.united.designer.dao.entity;
 import com.dao.entity.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Objects;
 
 /**
  *
@@ -26,5 +24,7 @@ public class SysDesignerItem extends BaseEntity {
     private String itemUnit;
     @Column(name="item_unit_price")
     private String itemUnitPrice;
-
+    /**备注*/
+    @Column(name = "memo")
+    private String memo;
 }

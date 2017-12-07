@@ -26,7 +26,7 @@ public class SysCodeValueTest {
 
         SysCodeValue sysItem2 = SysCodeValue.createBugetTempalte();
         sysItem2.setCodeName("卫生间");
-        sysItem2.setMemo("备注11");
+        sysItem2.setSysMemo("备注11");
         sysItemService.saveOrUpdate(sysItem2);
     }
 }
