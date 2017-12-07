@@ -1,3 +1,5 @@
+package sys;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.united.account.dao.entity.Account;
@@ -7,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import sun.management.counter.AbstractCounter;
 
 
 /**
@@ -33,7 +36,10 @@ public class AccountTest {
         System.out.println(valid);
     }
 
-    public static void main(String[] args) {
-        System.out.println("test");
+    @Test
+    public void testInsert(){
+        Account account = new Account();
+        account.setCorpId(11l);
+        accountService.saveOrUpdateAccount(account);
     }
 }

@@ -57,7 +57,7 @@ public class LoginCtrl {
 
 
         //默认设置总经理登录
-        account.setOid(10l);
+        account.setOid(1l);
         //判断是否登录
         Account accountEntity = accountService.getByOId(account.getOid());
 

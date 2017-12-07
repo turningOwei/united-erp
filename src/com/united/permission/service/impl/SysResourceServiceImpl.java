@@ -23,13 +23,14 @@ public class SysResourceServiceImpl implements SysResourceService {
     @Autowired
     private SysRoleResService sysRoleResService;
 
+    @Override
     public SysResource getRootNode(Account account){
         SysResource root = sysResourceDao.getRootSysource();
 
         //List<SysRoleRes> list = sysRoleResService.getListByRole(account.getAccountRole().getDeptRoleId());
 
-        //List<SysResource> list = sysResourceDao.list();
-        List<SysResource> list = this.getListByAccount(account);
+        List<SysResource> list = sysResourceDao.list();
+        //List<SysResource> list = this.getListByAccount(account);
         if(list!=null&&list.size() > 0){
             root = fillChildren(list,root);
         }

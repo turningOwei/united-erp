@@ -7,7 +7,6 @@ import com.united.corp.dao.entity.SysDepartment;
 import com.united.permission.dao.entity.SysDeptRole;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Table(name="T_ACCOUNT")
